@@ -26,10 +26,10 @@ signed long long load_rom(unsigned long long __path) {
 	
 	const char* path = ____path;
 	
-	//~ void*                 __pointer_current_program_previous = __pointer_current_program;
-	//~ __pointer__program_t* __pointer___this_previous          = __pointer___this;
+	void*                 __pointer_current_program_previous = __pointer_current_program;
+	__pointer__program_t* __pointer___this_previous          = __pointer___this;
 	
-	//~ program_t de_program;
+	program_t de_program;
 	FILE* fp = fopen(path, "rb");
 	
 	if (!fp) {
@@ -46,22 +46,22 @@ signed long long load_rom(unsigned long long __path) {
 	char* rom = (char*) malloc(bytes);
 	fread(rom, sizeof(char), bytes, fp);
 	
-	//~ de_program.pointer = rom;
+	de_program.pointer = rom;
 	
 	printf("Starting run setup phase ...\n");
-	//~ program_run_setup_phase(&de_program);
+	program_run_setup_phase(&de_program);
 	
-	//~ while (!program_run_loop_phase(&de_program));
-	//~ program_free(&de_program);
+	while (!program_run_loop_phase(&de_program));
+	program_free(&de_program);
 	
 	#if !OLD_ROM_FORMAT
 		mfree(rom, bytes);
 	#endif
 	
-	//~ __pointer_current_program = __pointer_current_program_previous;
-	//~ __pointer___this          = __pointer___this_previous;
+	__pointer_current_program = __pointer_current_program_previous;
+	__pointer___this          = __pointer___this_previous;
 	
-	return 0;//de_program.error_code;
+	return de_program.error_code;
 	
 }
 
