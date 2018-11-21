@@ -151,7 +151,7 @@ texture_t create_texture_from_font(font_t this, char* text) {
 	kos_font_t* font = &kos_fonts[this];
 	kos_font_create_text(font, text);
 	
-	return __texture_create(font->bmp.data, 32, font->bmp.width, font->bmp.height, 0);
+	return texture_create(font->bmp.data, 32, font->bmp.width, font->bmp.height);
 	
 }
 
