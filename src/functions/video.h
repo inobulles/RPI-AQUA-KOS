@@ -1,7 +1,7 @@
 
 unsigned long long video_fps(void) {
-	printf("%lld\n", (unsigned long long) (1.0f / current_kos->delta));
-	return (unsigned long long) (1.0f / current_kos->delta);
+	printf("%f\n", current_kos->delta);
+	return 60;//(unsigned long long) (1.0f / current_kos->delta);
 	
 }
 
