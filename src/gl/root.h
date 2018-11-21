@@ -16,12 +16,8 @@
 	#include "EGL/egl.h"
 	#include "EGL/eglext.h"
 
-	//#include "../gl/common.h"
-	#include "../common/error.h"
-	//#include "../math/deg_to_rad.h"
-	
 	#ifndef M_PI
-        	#define M_PI 3.141592654
+		#define M_PI 3.141592654
 	#endif
 
 	typedef struct {
