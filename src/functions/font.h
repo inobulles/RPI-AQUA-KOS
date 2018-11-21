@@ -126,8 +126,8 @@ static void kos_font_create_text(kos_font_t* this, char* text) {
 		
 		bmp_load(&this->bmp, path);
 		
-		this->text = (char*) malloc(strlen(text));
-		strcpy(this->text,                 text);
+		this->text = /*(char*) malloc(strlen(text));
+		strcpy(this->text,                 text)*/ text;
 		
 	}
 	
