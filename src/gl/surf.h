@@ -238,7 +238,7 @@
 		glColorPointer(4, GL_FLOAT, 0, this->colours);
 		
 		if (this->has_texture) {
-			glTexCoordPointer(2, GL_FLOAT, 0, this->tex_coords);
+			glTexCoordPointer(2, GL_FLOAT, 0, this->texture_coords);
 			
 		}
 

@@ -22,6 +22,7 @@ void video_clear_colour(unsigned long long r, unsigned long long g, unsigned lon
 }
 
 void video_clear(void) {
+	glColorMask(1, 1, 1, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 }
