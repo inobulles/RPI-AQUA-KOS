@@ -3,69 +3,7 @@
 	#define __AQUA__GL_SURF_H
 
 	#include "root.h"
-
-	/// THIS IS PART OF `#include "util.aqua"`
-
-	#ifndef __AQUA__GL_UTIL_H
-		#define __AQUA__GL_UTIL_H
-
-		typedef struct {
-			GLfloat	x;
-			GLfloat y;
-			GLfloat z;
-
-		} Vertex3D;
-
-		typedef struct {
-			GLfloat x;
-			GLfloat y;
-
-		} Coord2D;
-
-		typedef struct {
-			GLfloat	red;
-			GLfloat	green;
-			GLfloat	blue;
-			GLfloat alpha;
-
-		} Color3D;
-
-	#endif
-
-	#define SURFACE_VERTEX_COUNT 6
-
-	typedef struct {
-		float r;
-		float g;
-		float b;
-		
-		float width;
-		float height;
-
-		float x;
-		float y;
-
-		int layer;
-		float alpha;
-
-		Vertex3D vertices[SURFACE_VERTEX_COUNT];
-		Color3D colours[SURFACE_VERTEX_COUNT];
-		Coord2D tex_coords[SURFACE_VERTEX_COUNT];
-		GLubyte faces[SURFACE_VERTEX_COUNT];
-
-		unsigned char scroll_texture;
-		
-		float scroll_texture_x;
-		float scroll_texture_y;
-		
-		float scroll_texture_width;
-		float scroll_texture_height;
-
-		unsigned char has_texture;
-		GLuint texture;
-
-	} surface_t;
-
+	
 	static Vertex3D surface_add(int i, int j) {
 		unsigned char add_x;
 		unsigned char add_y;

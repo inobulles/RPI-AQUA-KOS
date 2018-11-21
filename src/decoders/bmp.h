@@ -40,18 +40,6 @@
 	
 	#pragma pack(pop)
 	
-	typedef struct {
-		unsigned char header[54];
-		unsigned int data_position;
-		
-		unsigned int width;
-		unsigned int height;
-		
-		unsigned int image_size;
-		unsigned char* data;
-		
-	} bitmap_image_t;
-	
 	bitmap_image_t load_bmp(const char* path) {
 		bitmap_image_t image;
 		FILE* file = fopen(path, "rb");
