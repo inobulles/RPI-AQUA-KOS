@@ -19,10 +19,6 @@
 #include "gl/view.h"
 #include "gl/surf.h"
 #include "gl/texture.h"
-#include "gl/clear.h"
-
-#include "graphics/layer.h"
-#include "graphics/texture.h"
 
 #include "h264/decoder.h"
 
