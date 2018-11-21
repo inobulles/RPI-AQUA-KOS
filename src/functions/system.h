@@ -46,8 +46,6 @@ typedef struct {
 } math_device_generic_t;
 
 typedef struct {
-	time_device_t previous_time_device;
-	
 	unsigned long long previous_math_device_sqrt_result;
 	unsigned long long previous_math_device_sin_result;
 	
