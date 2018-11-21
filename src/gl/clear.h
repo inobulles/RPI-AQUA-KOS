@@ -3,7 +3,6 @@
 	#define __AQUA__GL_CLEAR_H
 	
 	#include "root.h"
-	#include "../graphics/texture.h" // colour.h
 	
 	void clear(colour_t colour) {
 		glClearColor(colour.r, colour.g, colour.b, colour.a);

@@ -4,6 +4,12 @@
 #include <stdio.h>
 #include <time.h>
 
+#define MAX_PATH_LENGTH 4096
+
+#define GET_PATH(_path) \
+	char path[MAX_PATH_LENGTH] = "root/"; \
+	strncat(path, (char*) (_path), MAX_PATH_LENGTH - strlen(path)); \
+
 #include "lib/macros.h"
 #include "lib/structs.h"
 
@@ -19,12 +25,6 @@
 #include "graphics/texture.h"
 
 #include "h264/decoder.h"
-
-#define MAX_PATH_LENGTH 4096
-
-#define GET_PATH(_path) \
-	char path[MAX_PATH_LENGTH] = "root/"; \
-	strncat(path, (char*) (_path), MAX_PATH_LENGTH - strlen(path)); \
 
 state_t* state;
 
