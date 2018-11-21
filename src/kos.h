@@ -42,10 +42,24 @@ static kos_t* current_kos;
 
 int kos_init(kos_t* self) {
 	current_kos = self;
-	#include "main/init.h"
-	
 	state = (state_t*) &self->state;
 	
+	printf("Initializing the RPI OPENGLES AQUA compatibility wrapper ...\n");
+	
+	printf("Initializing the BCM host ...\n");
+	bcm_host_init();
+	
+	printf("Clearing state ...\n");
+	memset(state, 0, sizeof(*state));
+	
+	printf("Setting up OPENGLES ...\n");
+	
+	opengl_init(state);
+	opengl_view(state);
+	
+	screen_width  = state->screen_width;
+	screen_height = state->screen_height;
+		
 }
 
 void kos_quit(kos_t* self) {
@@ -53,6 +67,5 @@ void kos_quit(kos_t* self) {
 	opengl_exit(state);
 	
 	printf("Disposing of all objects ...\n");
-	#include "main/dispose.h"
 	
 }
