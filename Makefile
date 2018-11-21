@@ -3,13 +3,10 @@ CFLAGS := -DSTANDALONE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -DTARGET_P
 CWARNS := -Wno-int-to-pointer-cast -Wno-unused-variable -Wno-pointer-to-int-cast
 LDFLAGS := -L$(SDKSTAGE)/opt/vc/lib/ -lbrcmGLESv2 -lbrcmEGL -lopenmaxil -lbcm_host -lvcos -lvchiq_arm -lpthread -lrt -lm -lilclient -Lsrc/libs/ilclient -lvgfont -Lsrc/libs/vgfont -L$(SDKSTAGE)/src/libs/vgfont -lfreetype -lz
 INCLUDE := -I$(SDKSTAGE)/opt/vc/include/ -I$(SDKSTAGE)/opt/vc/include/interface/vcos/pthreads -I$(SDKSTAGE)/opt/vc/include/interface/vmcs_host/linux -I./ -I$(SDKSTAGE)/src/libs/ilclient -I$(SDKSTAGE)/src/libs/vgfont
-OBJS := objects/main.o
 
-objects/main.o:
+output.bin:
+	#$(CC) -o bin/output.bin -Wl,--whole-archive $(OBJS) $(LDFLAGS) -Wl,--no-whole-archive -rdynamic
 	$(CC) glue.c
-
-output.bin: $(OBJS)
-	$(CC) -o bin/output.bin -Wl,--whole-archive $(OBJS) $(LDFLAGS) -Wl,--no-whole-archive -rdynamic
 
 build-all:
 	sh scripts/build_all.sh
