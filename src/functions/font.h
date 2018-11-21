@@ -10,7 +10,24 @@ typedef struct {
 	//~ TTF_Font* font;
 	//~ SDL_Surface* surface;
 	
+	bitmap_image_t bmp;
+	
 } kos_font_t;
+
+static const char* strnchr(const char *str, size_t len, char c) {
+	const char* e = str + len;
+	
+	do {
+		if (*str == c) {
+			return str;
+			
+		}
+		
+	} while (++str < e);
+	
+	return NULL;
+	
+}
 
 #ifndef KOS_MAX_FONTS
 	#define KOS_MAX_FONTS 4096
@@ -107,42 +124,19 @@ void update_all_font_sizes(void) {
 	
 }
 
+unsigned long long index = 0;
+
 static void kos_font_create_text(kos_font_t* this, char* text) {
-	//~ if (!this->surface || (this->text == NULL || strcmp(text, this->text) != 0)) {
-		//~ if (this->surface) {
-			//~ SDL_FreeSurface(this->surface);
-			//~ this->surface = NULL;
-			
-		//~ }
+	if (this->text == NULL || strcmp(text, this->text) != 0) {
+		char path[256];
+		sprintf(path, "root/REMME/%lld.bmp", index);
 		
-		//~ this->text = (char*) malloc(strlen(text));
-		//~ strcpy(this->text,                 text);
+		bmp_load(&this->bmp, path);
 		
-		//~ SDL_Surface* temp = TTF_RenderUTF8_Blended(this->font, text, kos_font_colour);
-		//~ this->surface = SDL_CreateRGBSurface(0, temp->w, temp->h, 32, 0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
+		this->text = (char*) malloc(strlen(text));
+		strcpy(this->text,                 text);
 		
-		//~ SDL_BlitSurface(temp, NULL, this->surface, NULL);
-		//~ SDL_FreeSurface(temp);
-		
-		//~ if (!this->surface) {
-			//~ printf("WARNING Could not create the font surface (SDL `%s`, TTF `%s`)\n", SDL_GetError(), TTF_GetError());
-			//~ this->used = 0;
-			
-			//~ return;
-			
-		//~ }
-		
-		//~ SDL_LockSurface(this->surface);
-		//~ uint64_t* pixels = (uint64_t*) this->surface->pixels;
-		
-		//~ unsigned long long i;
-		//~ for (i = 0; i < (this->surface->w * this->surface->h) / 2; i++) {
-			//~ pixels[i] &= 0xFF000000FF000000;
-			//~ pixels[i] += 0x00FFFFFF00FFFFFF;
-			
-		//~ }
-		
-	//~ }
+	}
 	
 }
 
@@ -172,7 +166,7 @@ texture_t create_texture_from_font(font_t this, char* text) {
 	kos_font_t* font = &kos_fonts[this];
 	kos_font_create_text(font, text);
 	
-	return 0;//__texture_create(font->surface->pixels, 32, font->surface->w, font->surface->h, 0);
+	return __texture_create(font->bmp.data, 32, font->bmp.width, font->bmp.height, 0);
 	
 }
 
@@ -182,7 +176,7 @@ unsigned long long get_font_width(font_t this, char* text) {
 	kos_font_t* font = &kos_fonts[this];
 	kos_font_create_text(font, text);
 	
-	return 0;//font->surface->w;
+	return font->bmp.width;
 	
 }
 
@@ -192,6 +186,6 @@ unsigned long long get_font_height(font_t this, char* text) {
 	kos_font_t* font = &kos_fonts[this];
 	kos_font_create_text(font, text);
 	
-	return 0;//font->surface->h;
+	return font->bmp.height;
 	
 }

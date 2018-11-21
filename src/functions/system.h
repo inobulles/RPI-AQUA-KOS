@@ -60,7 +60,6 @@ unsigned long long* get_device(unsigned long long device, const char* extra) {
 	switch (device) {
 		case DEVICE_MATH: {
 			if (strcmp(extra, "sqrt") == 0) {
-				printf("ASDOAIDUNA\n");
 				math_device_generic_t* data = (math_device_generic_t*) extra;
 				kos_bda_implementation.previous_math_device_sqrt_result = (unsigned long long) (sqrt((double) data->x / FLOAT_ONE) * FLOAT_ONE);
 				result = &kos_bda_implementation.previous_math_device_sqrt_result;
