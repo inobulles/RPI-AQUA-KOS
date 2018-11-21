@@ -12,7 +12,7 @@ signed long long load_rom(unsigned long long sdf) {
 	
 }
 
-//~ static kos_t kos;
+static kos_t kos;
 
 //~ #define ROM_PATH "ROM.zed"
 //~ static unsigned long long kos_roms_loaded = 0;
@@ -74,19 +74,19 @@ int main(void) {
 	printf("\nControl passed to the CW\n");
 	printf("Initializing the KOS ...\n");
 	
-	//~ if (kos_init(&kos)) {
-		//~ printf("WARNING Failed to initialize KOS. Exitting ...\n");
-		//~ exit(1);
+	if (kos_init(&kos)) {
+		printf("WARNING Failed to initialize KOS. Exitting ...\n");
+		exit(1);
 		
-	//~ }
+	}
 	
-	//~ printf("Entering the DE ...\n");
+	printf("Entering the DE ...\n");
 	
 	//~ int error_code = load_rom((unsigned long long) ROM_PATH);
 	//~ printf("DE return code is %d\n", error_code);
 	
-	//~ printf("Quitting KOS ...\n");
-	//~ kos_quit(&kos);
+	printf("Quitting KOS ...\n");
+	kos_quit(&kos);
 	
 	return 0;//error_code;
 	
