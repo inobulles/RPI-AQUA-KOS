@@ -4,9 +4,22 @@ unsigned long long get_platform(void) {
 	
 }
 
+#define DEVICE_NULL     0
+#define DEVICE_TEXTURE  1
+#define DEVICE_KEYBOARD 2
+#define DEVICE_WM       3
+#define DEVICE_MATH     4
+#define DEVICE_CLOCK    5
+#define DEVICE_ANDROID  6
+#define DEVICE_FBO      7
+#define DEVICE_SHADER   8
+#define DEVICE_REQUESTS 9
+#define DEVICE_DISCORD  10
+#define DEVICE_GL       11
+
 unsigned long long is_device_supported(const char* device) {
-	printf("TODO is_device_supported::%s\n", device);
-	return 0;
+	if (strcmp(device, "math") == 0) return DEVICE_MATH;
+	else                             return DEVICE_NULL;
 	
 }
 
@@ -20,19 +33,6 @@ void platform(void) {
 	printf("TODO platform\n");
 	
 }
-
-#define DEVICE_NULL     0
-#define DEVICE_TEXTURE  1
-#define DEVICE_KEYBOARD 2
-#define DEVICE_WM       3
-#define DEVICE_MATH     4
-#define DEVICE_CLOCK    5
-#define DEVICE_ANDROID  6
-#define DEVICE_FBO      7
-#define DEVICE_SHADER   8
-#define DEVICE_REQUESTS 9
-#define DEVICE_DISCORD  10
-#define DEVICE_GL       11
 
 #define FLOAT_ONE 1000000
 
