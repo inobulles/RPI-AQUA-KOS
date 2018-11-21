@@ -5,7 +5,7 @@
 	#include "root.h"
 	
 	static void opengl_init(state_t* state) {
-		int32_t success = ERROR_SUCCESS;
+		int32_t success = 0;
 		EGLint config_num;
 
 		static EGL_DISPMANX_WINDOW_T native_window;
@@ -43,7 +43,7 @@
 
 		success = graphics_get_display_size(0 /*LCD*/, &state->screen_width, &state->screen_height);
 		printf("Detected display (%dx%d)\n", state->screen_width, state->screen_height);
-		assert(success >= ERROR_SUCCESS);
+		assert(success >= 0);
 
 		dst_rect.x = 0;
 		dst_rect.y = 0;

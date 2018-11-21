@@ -65,7 +65,7 @@ signed long long load_rom(unsigned long long __path) {
 	
 }
 
-void main(void) {
+int main(void) {
 	printf("\nControl passed to the CW\n");
 	printf("Initializing the KOS ...\n");
 	
@@ -82,5 +82,7 @@ void main(void) {
 	
 	printf("Quitting KOS ...\n");
 	kos_quit(&kos);
+	
+	return error_code;
 	
 }
