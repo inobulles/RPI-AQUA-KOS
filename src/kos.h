@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <time.h>
 
+#include "lib/macros.h"
+#include "lib/structs.h"
+
 #include "gl/init.h"
 #include "gl/exit.h"
 #include "gl/draw.h"
@@ -16,9 +19,6 @@
 #include "graphics/texture.h"
 
 #include "h264/decoder.h"
-
-#include "lib/macros.h"
-#include "lib/structs.h"
 
 #define MAX_PATH_LENGTH 4096
 
