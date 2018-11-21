@@ -15,7 +15,6 @@
 #include "graphics/layer.h"
 #include "graphics/texture.h"
 
-#include "decoders/bmp.h"
 #include "h264/decoder.h"
 
 #define MAX_PATH_LENGTH 4096
@@ -40,7 +39,10 @@ typedef struct {
 
 static kos_t* current_kos;
 
-#include "kos/video.h"
+#include "decoders/bmp.h"
+#include "functions/system.h"
+#include "functions/fs.h"
+#include "functions/video.h"
 
 int kos_init(kos_t* self) {
 	current_kos = self;

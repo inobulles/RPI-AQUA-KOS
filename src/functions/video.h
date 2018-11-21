@@ -15,3 +15,18 @@ void video_flip(void) {
 	current_kos->time_2 = clock();
 	
 }
+
+void video_clear_colour(unsigned long long r, unsigned long long g, unsigned long long b, unsigned long long a) {
+	glClearColor((float) r / _UI64_MAX, (float) g / _UI64_MAX, (float) b / _UI64_MAX, (float) a / _UI64_MAX);
+	
+}
+
+void video_clear(void) {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+}
+
+void get_events(event_list_t* self) {
+	self->quit = 0;
+	
+}
