@@ -2,10 +2,15 @@
 #include "src/kos.h"
 #include "asm/asm.h"
 
-//~ void mfree(void* ptr, unsigned long long bytes) { // for some reason, this was not already defined
-	//~ free(ptr);
+void mfree(void* ptr, unsigned long long bytes) { // for some reason, this was not already defined
+	free(ptr);
 	
-//~ }
+}
+
+signed long long load_rom(unsigned long long sdf) {
+	return 0;
+	
+}
 
 //~ static kos_t kos;
 
