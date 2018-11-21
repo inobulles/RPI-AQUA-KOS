@@ -11,6 +11,7 @@ typedef struct {
 	//~ SDL_Surface* surface;
 	
 	bitmap_image_t bmp;
+	int is_alloc_bmp;
 	
 } kos_font_t;
 
@@ -35,6 +36,8 @@ static void kos_unuse_font(kos_font_t* this) {
 	this->text    = NULL;
 	//~ this->font    = NULL;
 	//~ this->surface = NULL;
+	
+	this->is_alloc_bmp = 0;
 	
 }
 
@@ -113,6 +116,11 @@ unsigned long long FUUUUUUUUUUUU = 0;
 
 static void kos_font_create_text(kos_font_t* this, char* text) {
 	if (this->text == NULL || strcmp(text, this->text) != 0) {
+		if (this->is_alloc_bmp) {
+			bmp_free(&this->bmp);
+			
+		}
+		
 		char path[256];
 		sprintf(path, "root/REMME/%lld.bmp", FUUUUUUUUUUUU++);
 		
