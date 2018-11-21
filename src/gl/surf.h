@@ -4,6 +4,20 @@
 
 	#include "root.h"
 
+	static const float vertex_matrix[] = {
+		0.0f, 1.0f, 1.0f,
+		0.0f, 0.0f, 1.0f,
+		1.0f, 0.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+	};
+	
+	static const float texture_coords[] = {
+		0.0f, 0.0f,
+		0.0f, 1.0f,
+		1.0f, 1.0f,
+		1.0f, 0.0f,
+	};
+
 	static inline void surface_update_vertices(surface_t* this) {
 		float width  = (float) this->width  / _UI64_MAX_MARGIN;
 		float height = (float) this->height / _UI64_MAX_MARGIN;

@@ -3,6 +3,7 @@
 	#define __AQUA__STD_STRUCTS_H
 	
 	#include "macros.h"
+	#include <stdint.h>
 	
 	// internal, do not touch
 	
