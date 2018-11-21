@@ -6,7 +6,7 @@ INCLUDE := -I$(SDKSTAGE)/opt/vc/include/ -I$(SDKSTAGE)/opt/vc/include/interface/
 OBJS := objects/main.o
 
 objects/main.o:
-	$(CC) $(CFLAGS) $(CWARNS) $(INCLUDE) glue.c
+	$(CC) glue.c
 
 output.bin: $(OBJS)
 	$(CC) -o bin/output.bin -Wl,--whole-archive $(OBJS) $(LDFLAGS) -Wl,--no-whole-archive -rdynamic
@@ -18,3 +18,5 @@ run:
 	bin/output.bin
 
 .PHONY: build-all run
+
+#$(CFLAGS) $(CWARNS) $(INCLUDE)
