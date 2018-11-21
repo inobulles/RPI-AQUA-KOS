@@ -14,21 +14,6 @@ typedef struct {
 	
 } kos_font_t;
 
-static const char* strnchr(const char *str, size_t len, char c) {
-	const char* e = str + len;
-	
-	do {
-		if (*str == c) {
-			return str;
-			
-		}
-		
-	} while (++str < e);
-	
-	return NULL;
-	
-}
-
 #ifndef KOS_MAX_FONTS
 	#define KOS_MAX_FONTS 4096
 #endif
@@ -124,12 +109,12 @@ void update_all_font_sizes(void) {
 	
 }
 
-unsigned long long index = 0;
+unsigned long long FUUUUUUUUUUUU = 0;
 
 static void kos_font_create_text(kos_font_t* this, char* text) {
 	if (this->text == NULL || strcmp(text, this->text) != 0) {
 		char path[256];
-		sprintf(path, "root/REMME/%lld.bmp", index);
+		sprintf(path, "root/REMME/%lld.bmp", FUUUUUUUUUUUU++);
 		
 		bmp_load(&this->bmp, path);
 		
