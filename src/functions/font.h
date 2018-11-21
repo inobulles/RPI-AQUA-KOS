@@ -122,7 +122,7 @@ static void kos_font_create_text(kos_font_t* this, char* text) {
 		}
 		
 		char path[256];
-		sprintf(path, "root/REMME/%lld.bmp", FUUUUUUUUUUUU++);
+		sprintf(path, "REMME/%lld.bmp", FUUUUUUUUUUUU++);
 		
 		bmp_load(&this->bmp, path);
 		
