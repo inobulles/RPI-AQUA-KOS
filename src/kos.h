@@ -4,8 +4,6 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "common/error.h"
-
 #include "gl/init.h"
 #include "gl/exit.h"
 #include "gl/draw.h"
@@ -16,9 +14,6 @@
 
 #include "graphics/layer.h"
 #include "graphics/texture.h"
-
-#include "const/places.h"
-#include "screens/loading.h"
 
 #include "h264/decoder.h"
 
@@ -59,6 +54,8 @@ int kos_init(kos_t* self) {
 	
 	screen_width  = state->screen_width;
 	screen_height = state->screen_height;
+	
+	return 0;
 		
 }
 
