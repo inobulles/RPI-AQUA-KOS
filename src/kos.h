@@ -17,6 +17,9 @@
 
 #include "h264/decoder.h"
 
+#include "lib/macros.h"
+#include "lib/structs.h"
+
 #define MAX_PATH_LENGTH 4096
 
 #define GET_PATH(_path) \
