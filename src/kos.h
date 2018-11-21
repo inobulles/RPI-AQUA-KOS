@@ -22,51 +22,46 @@
 
 #include "h264/decoder.h"
 
-static state_t _state;
-state_t* state = &_state;
-
-int place = PLACE_LOADING;
-static float delta;
-
-static volatile int terminate;
-
-void (*pass_dispose) (void);
-void (*pass_draw) (float delta);
-void (*pass_init) (void);
+state_t* state;
 
 unsigned int screen_width;
 unsigned int screen_height;
 
-/// KOS
-
 typedef struct {
-	
-} kos_t;
-
-int foundation_main(void) {
-	#include "main/init.h"
-	
 	clock_t time_1;
 	clock_t time_2;
 	
-	terminate = 0;
-	while (!terminate) {
-		time_1 = clock();
-		delta = -(time_2 - time_1) / 1000000.0f * 1000.0f;
-		
-		draw(state);
-		flip(state);
-		
-		time_2 = clock();
-		
-	}
+	float delta;
+	state_t state;
 	
+} kos_t;
+
+static kos_t* current_kos;
+
+void video_flip(void) {
+	current_kos->time_1 = clock();
+	current_kos->delta = -(current_kos->time_2 - current_kos->time_1) / 1000000.0f * 1000.0f;
+	
+	draw(current_kos->state);
+	flip(current_kos->state);
+	
+	current_kos->time_2 = clock();
+	
+}
+
+int kos_init(kos_t* self) {
+	current_kos = self;
+	#include "main/init.h"
+	
+	state = (state_t*) &self->state;
+	
+}
+
+void kos_quit(kos_t* self) {
 	printf("Exiting OPENGLES ...\n");
 	opengl_exit(state);
 	
 	printf("Disposing of all objects ...\n");
 	#include "main/dispose.h"
 	
-	return ERROR_SUCCESS;
-
 }
