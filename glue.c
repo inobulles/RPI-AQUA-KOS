@@ -77,12 +77,12 @@ int main(void) {
 	
 	printf("Entering the DE ...\n");
 	
-	//~ int error_code = load_rom((unsigned long long) ROM_PATH);
-	//~ printf("DE return code is %d\n", error_code);
+	int error_code = load_rom((unsigned long long) ROM_PATH);
+	printf("DE return code is %d\n", error_code);
 	
 	printf("Quitting KOS ...\n");
 	kos_quit(&kos);
 	
-	return 0;//error_code;
+	return error_code;
 	
 }
