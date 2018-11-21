@@ -2,51 +2,57 @@
 #ifndef __AQUA__DECODERS_BMP_H
 	#define __AQUA__DECODERS_BMP_H
 	
-	#include <math.h>
-	#include "../gl/root.h"
-	
 	#pragma pack(push, 1)
-	
-	typedef struct bhs {
-		uint16_t magic;
-		uint32_t file_size;
+		typedef struct {
+			uint16_t magic;
+			uint32_t file_size;
 		
-		uint16_t reserved_1;
-		uint16_t reserved_2;
+			uint16_t reserved_1;
+			uint16_t reserved_2;
 		
-		uint32_t offset;
+			uint32_t offset;
 		
-	} bitmap_header_t;
-	
-	typedef struct bihs {
-		uint32_t size;
+		} bitmap_header_t;
 		
-		int32_t width;
-		int32_t height;
+		typedef struct {
+			uint32_t size;
 		
-		uint16_t planes;
-		uint16_t bpp;
+			int32_t width;
+			int32_t height;
 		
-		uint32_t compression_type;
-		uint32_t image_bytes;
+			uint16_t planes;
+			uint16_t bpp;
 		
-		int64_t pixels_per_meter_x;
-		int64_t pixels_per_meter_y;
+			uint32_t compression_type;
+			uint32_t image_bytes;
 		
-		uint32_t colour_count;
-		uint32_t important_colours;
+			int64_t pixels_per_meter_x;
+			int64_t pixels_per_meter_y;
 		
-	} bitmap_info_header_t;
-	
+			uint32_t colour_count;
+			uint32_t important_colours;
+		
+		} bitmap_info_header_t;
 	#pragma pack(pop)
 	
-	bitmap_image_t load_bmp(const char* path) {
-		bitmap_image_t image;
+	unsigned long long bmp_support(void) {
+		return 1;
+	
+	}
+	
+	#define BMP_MAGIC 0x4D42
+	
+	void bmp_load(bitmap_image_t* this, unsigned long long _path) {
+		this->data = (void*) 0;
+		
+		char* buffer;
+		GET_PATH((char*) _path);
+		
 		FILE* file = fopen(path, "rb");
 		
 		if (!file) {
-			printf("ERROR Image file could not be opened\n");
-			return *(bitmap_image_t*) 0;
+			printf("WARNING Image file could not be opened (probably wrong path `%s`)\n", path);
+			return;
 			
 		}
 		
@@ -56,41 +62,66 @@
 		fread((char*) &header, sizeof(bitmap_header_t), 1, file);
 		
 		if (header.magic != 0x4D42) {
-			printf("ERROR File is not a bitmap image\n");
+			printf("WARNING File is not a bitmap image\n");
 			fclose(file);
 			
-			return *(bitmap_image_t*) 0;
+			return;
 			
 		}
 		
 		fread((char*) &info_header, sizeof(bitmap_info_header_t), 1, file);
 		
-		image.image_size = info_header.image_bytes;
-		image.width = info_header.width;
-		image.height = info_header.height;
+		this->image_size = info_header.image_bytes / sizeof(unsigned long long);
+		this->width  = info_header.width;
+		this->height = info_header.height;
 		
-		image.data = (unsigned char*) malloc(image.image_size);
+		unsigned char* char_data = (unsigned char*) malloc(info_header.image_bytes);
 		unsigned char temp;
 		
 		fseek(file, header.offset, SEEK_SET);
-		fread(image.data, info_header.image_bytes, 1, file);
+		fread(char_data, info_header.image_bytes, 1, file);
+		this->bpp = info_header.bpp;
 		
 		int i;
-		for (i = 0; i < image.image_size; i += 3) {
-			temp = image.data[i];
-			image.data[i] = image.data[i + 2];
-			image.data[i + 2] = temp;
+		for (i = 0; i < info_header.image_bytes; i += this->bpp / 8) {
+			if (this->bpp == 32) {
+				unsigned char a = char_data[i];
+				unsigned char r = char_data[i + 1];
+				unsigned char g = char_data[i + 2];
+				unsigned char b = char_data[i + 3];
+				
+				char_data[i]     = b;
+				char_data[i + 1] = g;
+				char_data[i + 2] = r;
+				char_data[i + 3] = a;
+				
+			} else {
+				temp             = char_data[i];
+				char_data[i]     = char_data[i + 2];
+				char_data[i + 2] = temp;
+				
+			}
 			
 		}
 		
+		this->data               = (unsigned long long*) malloc(info_header.image_bytes);
+		unsigned char* data8     = (unsigned char*)      this->data;
+		unsigned long long pitch = (unsigned long long)  info_header.width * (info_header.bpp / 8);
+		
+		int y;
+		for (y = 0; y < info_header.height; y++) {
+			memcpy(data8 + (info_header.height - y - 1) * pitch, char_data + y * pitch, pitch);
+			
+		}
+		
+		free(char_data);
 		fclose(file);
-		return image;
-
+	
 	}
 	
-	void dispose_bmp(bitmap_image_t image) {
-		free(image.data/*, image.image_size*/);
-		
+	void bmp_free(bitmap_image_t* this) {
+		free(this->data/*, this->image_size * sizeof(unsigned long long)*/);
+	
 	}
 	
 #endif
