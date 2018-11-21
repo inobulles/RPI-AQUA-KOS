@@ -21,9 +21,52 @@ void platform(void) {
 	
 }
 
+#include <math.h>
+
+typedef struct {
+	char signature[sizeof(uint64_t)];
+	uint64_t x;
+	
+} math_device_generic_t;
+
+typedef struct {
+	time_device_t previous_time_device;
+	
+	unsigned long long previous_math_device_sqrt_result;
+	unsigned long long previous_math_device_sin_result;
+	
+} kos_bda_extension_t;
+
 unsigned long long* get_device(unsigned long long device, const char* extra) {
-	printf("TODO get_device\n");
-	return NULL;
+	unsigned long long* result = (unsigned long long*) 0;
+	
+	switch (device) {
+		case DEVICE_MATH: {
+			if (strcmp(extra, "sqrt") == 0) {
+				math_device_generic_t* data = (math_device_generic_t*) extra;
+				kos_bda_implementation.previous_math_device_sqrt_result = (unsigned long long) (sqrt((double) data->x / FLOAT_ONE) * FLOAT_ONE);
+				result = &kos_bda_implementation.previous_math_device_sqrt_result;
+				
+			} else {
+				KOS_DEVICE_COMMAND_WARNING("math")
+				
+			}
+			
+			break;
+			
+		} case DEVICE_NULL: {
+			printf("WARNING The device you have selected is DEVICE_NULL\n");
+			break;
+			
+		} default: {
+			printf("WARNING Device %lld does not seem to exist or doesn't accept `get` commands\n", device);
+			break;
+			
+		}
+		
+	}
+	
+	return result;
 	
 }
 
