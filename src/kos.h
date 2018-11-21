@@ -38,16 +38,7 @@ typedef struct {
 
 static kos_t* current_kos;
 
-void video_flip(void) {
-	current_kos->time_1 = clock();
-	current_kos->delta = -(current_kos->time_2 - current_kos->time_1) / 1000000.0f * 1000.0f;
-	
-	draw(current_kos->state);
-	flip(current_kos->state);
-	
-	current_kos->time_2 = clock();
-	
-}
+#include "kos/video.h"
 
 int kos_init(kos_t* self) {
 	current_kos = self;
