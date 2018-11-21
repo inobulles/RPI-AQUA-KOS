@@ -29,5 +29,8 @@ void video_clear(void) {
 
 void get_events(event_list_t* self) {
 	self->quit = 0;
+	self->pointer_x = video_width () >> 1;
+	self->pointer_y = video_height() >> 1;
+	self->pointer_click_type = !system("rm click");
 	
 }
