@@ -42,6 +42,7 @@ static kos_t* current_kos;
 #include "functions/system.h"
 #include "functions/fs.h"
 #include "functions/video.h"
+#include "functions/font.h"
 
 texture_t get_predefined_texture   (unsigned long long name) { return 0; }
 texture_t update_predefined_texture(unsigned long long name) { return 0; }
