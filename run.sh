@@ -2,9 +2,9 @@
 
 cd ~/Desktop/aqua/;
 
-rm bin/output.bin;
+rm a.out;
 make output.bin;
 
-bin/output.bin;
+./a.out;
 
 exit;
