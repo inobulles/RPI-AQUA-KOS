@@ -1,4 +1,4 @@
-#include "vgfont.h"
+#include "../libs/vgfont/vgfont.h"
 
 typedef struct {
 	unsigned char used;
