@@ -21,6 +21,22 @@ void platform(void) {
 	
 }
 
+#define DEVICE_NULL     0
+#define DEVICE_TEXTURE  1
+#define DEVICE_KEYBOARD 2
+#define DEVICE_WM       3
+#define DEVICE_MATH     4
+#define DEVICE_CLOCK    5
+#define DEVICE_ANDROID  6
+#define DEVICE_FBO      7
+#define DEVICE_SHADER   8
+#define DEVICE_REQUESTS 9
+#define DEVICE_DISCORD  10
+#define DEVICE_GL       11
+
+#define FLOAT_ONE 1000000
+
+#define KOS_DEVICE_COMMAND_WARNING(device_name) printf("WARNING The command you have passed to the " device_name " device (%s) is unrecognized\n", extra);
 #include <math.h>
 
 typedef struct {
@@ -36,6 +52,9 @@ typedef struct {
 	unsigned long long previous_math_device_sin_result;
 	
 } kos_bda_extension_t;
+
+#define KOS_BDA_EXTENSION
+kos_bda_extension_t kos_bda_implementation;
 
 unsigned long long* get_device(unsigned long long device, const char* extra) {
 	unsigned long long* result = (unsigned long long*) 0;
