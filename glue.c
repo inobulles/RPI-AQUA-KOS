@@ -1,6 +1,6 @@
 
 #include "src/kos.h"
-//~ #include "asm/asm.h"
+#include "asm/heap.h"
 
 void mfree(void* ptr, unsigned long long bytes) { // for some reason, this was not already defined
 	free(ptr);
