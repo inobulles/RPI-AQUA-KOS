@@ -37,6 +37,12 @@ void (*pass_init) (void);
 unsigned int screen_width;
 unsigned int screen_height;
 
+/// KOS
+
+typedef struct {
+	
+} kos_t;
+
 int foundation_main(void) {
 	#include "main/init.h"
 	
@@ -48,17 +54,19 @@ int foundation_main(void) {
 		time_1 = clock();
 		delta = -(time_2 - time_1) / 1000000.0f * 1000.0f;
 		
-		#include "main/draw.h"
+		draw(state);
+		flip(state);
+		
 		time_2 = clock();
 		
 	}
-
+	
 	printf("Exiting OPENGLES ...\n");
 	opengl_exit(state);
-
+	
 	printf("Disposing of all objects ...\n");
 	#include "main/dispose.h"
-
+	
 	return ERROR_SUCCESS;
 
 }

@@ -5,7 +5,7 @@ INCLUDE := -I$(SDKSTAGE)/opt/vc/include/ -I$(SDKSTAGE)/opt/vc/include/interface/
 OBJS := objects/main.o
 
 objects/main.o:
-	$(CC) $(CFLAGS) $(INCLUDE) -g -c -o objects/main.o src/main.c
+	$(CC) $(CFLAGS) $(INCLUDE) -g -c -o objects/main.o glue.c
 
 output.bin: $(OBJS)
 	$(CC) -o bin/output.bin -Wl,--whole-archive $(OBJS) $(LDFLAGS) -Wl,--no-whole-archive -rdynamic

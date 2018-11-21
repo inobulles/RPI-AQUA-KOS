@@ -12,7 +12,7 @@ printf("Setting up OPENGLES ...\n");
 opengl_init(state);
 opengl_view(state);
 
-screen_width = state->screen_width;
+screen_width  = state->screen_width;
 screen_height = state->screen_height;
 
 // objects
