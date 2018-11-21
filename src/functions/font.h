@@ -108,15 +108,15 @@ void update_all_font_sizes(void) {
 }
 
 static void kos_font_create_text(kos_font_t* this, char* text) {
-	if (!this->surface || (this->text == NULL || strcmp(text, this->text) != 0)) {
-		if (this->surface) {
+	//~ if (!this->surface || (this->text == NULL || strcmp(text, this->text) != 0)) {
+		//~ if (this->surface) {
 			//~ SDL_FreeSurface(this->surface);
-			this->surface = NULL;
+			//~ this->surface = NULL;
 			
-		}
+		//~ }
 		
-		this->text = (char*) malloc(strlen(text));
-		strcpy(this->text,                 text);
+		//~ this->text = (char*) malloc(strlen(text));
+		//~ strcpy(this->text,                 text);
 		
 		//~ SDL_Surface* temp = TTF_RenderUTF8_Blended(this->font, text, kos_font_colour);
 		//~ this->surface = SDL_CreateRGBSurface(0, temp->w, temp->h, 32, 0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
@@ -142,7 +142,7 @@ static void kos_font_create_text(kos_font_t* this, char* text) {
 			
 		//~ }
 		
-	}
+	//~ }
 	
 }
 
@@ -154,10 +154,10 @@ unsigned long long font_remove(font_t this) {
 		
 	}
 	
-	if (kos_fonts[this].surface) {
+	//~ if (kos_fonts[this].surface) {
 		//~ SDL_FreeSurface(kos_fonts[this].surface);
 		
-	}
+	//~ }
 	
 	//~ TTF_CloseFont(  kos_fonts[this].font);
 	kos_unuse_font(&kos_fonts[this]);
@@ -172,7 +172,7 @@ texture_t create_texture_from_font(font_t this, char* text) {
 	kos_font_t* font = &kos_fonts[this];
 	kos_font_create_text(font, text);
 	
-	return __texture_create(font->surface->pixels, 32, font->surface->w, font->surface->h, 0);
+	return 0;//__texture_create(font->surface->pixels, 32, font->surface->w, font->surface->h, 0);
 	
 }
 
@@ -182,7 +182,7 @@ unsigned long long get_font_width(font_t this, char* text) {
 	kos_font_t* font = &kos_fonts[this];
 	kos_font_create_text(font, text);
 	
-	return font->surface->w;
+	return 0;//font->surface->w;
 	
 }
 
@@ -192,6 +192,6 @@ unsigned long long get_font_height(font_t this, char* text) {
 	kos_font_t* font = &kos_fonts[this];
 	kos_font_create_text(font, text);
 	
-	return font->surface->h;
+	return 0;//font->surface->h;
 	
 }
