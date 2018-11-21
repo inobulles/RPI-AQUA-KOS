@@ -1,5 +1,5 @@
 
-//~ #include "src/kos.h"
+#include "src/kos.h"
 #include "asm/asm.h"
 
 //~ void mfree(void* ptr, unsigned long long bytes) { // for some reason, this was not already defined
