@@ -44,9 +44,6 @@ static kos_t* current_kos;
 #include "functions/video.h"
 #include "functions/font.h"
 
-texture_t get_predefined_texture   (unsigned long long name) { return 0; }
-texture_t update_predefined_texture(unsigned long long name) { return 0; }
-
 int kos_init(kos_t* self) {
 	current_kos = self;
 	state = (state_t*) &self->state;
