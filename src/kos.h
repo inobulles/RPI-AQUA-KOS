@@ -64,6 +64,13 @@ int kos_init(kos_t* self) {
 	screen_width  = state->screen_width;
 	screen_height = state->screen_height;
 	
+	printf("Setting up predefined textures ...\n");
+	
+	if (kos_setup_predefined_textures(this)) {
+		printf("WARNING Failed to setup predefined textures\n");
+		
+	}
+	
 	return 0;
 		
 }
