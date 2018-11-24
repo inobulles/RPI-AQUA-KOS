@@ -81,4 +81,7 @@ void kos_quit(kos_t* self) {
 	
 	printf("Disposing of all objects ...\n");
 	
+	kos_free_predefined_textures(self);
+	kos_destroy_fonts();
+	
 }
