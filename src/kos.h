@@ -44,7 +44,7 @@ static kos_t* current_kos;
 #include "functions/video.h"
 #include "functions/font.h"
 
-#include "openvg/test.h"
+//~ #include "openvg/test.h"
 
 int kos_init(kos_t* self) {
 	current_kos = self;
