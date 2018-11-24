@@ -44,6 +44,8 @@ static kos_t* current_kos;
 #include "functions/video.h"
 #include "functions/font.h"
 
+#include "openvg/test.h"
+
 int kos_init(kos_t* self) {
 	current_kos = self;
 	state = (state_t*) &self->state;
@@ -72,7 +74,7 @@ int kos_init(kos_t* self) {
 	}
 	
 	return 0;
-		
+	
 }
 
 void kos_quit(kos_t* self) {
