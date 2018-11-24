@@ -10,9 +10,6 @@ typedef struct {
 	//~ TTF_Font* font;
 	//~ SDL_Surface* surface;
 	
-	bitmap_image_t bmp;
-	int is_alloc_bmp;
-	
 } kos_font_t;
 
 #ifndef KOS_MAX_FONTS
@@ -36,8 +33,6 @@ static void kos_unuse_font(kos_font_t* this) {
 	this->text    = NULL;
 	//~ this->font    = NULL;
 	//~ this->surface = NULL;
-	
-	this->is_alloc_bmp = 0;
 	
 }
 
@@ -112,22 +107,15 @@ void update_all_font_sizes(void) {
 	
 }
 
-unsigned long long FUUUUUUUUUUUU = 0;
-
 static void kos_font_create_text(kos_font_t* this, char* text) {
 	if (this->text == NULL || strcmp(text, this->text) != 0) {
-		if (this->is_alloc_bmp) {
-			bmp_free(&this->bmp);
+		if      (this->text) {
+			free(this->text);
 			
 		}
 		
-		char path[256];
-		sprintf(path, "REMME/%lld.bmp", FUUUUUUUUUUUU++);
-		
-		bmp_load(&this->bmp, path);
-		
-		this->text = /*(char*) malloc(strlen(text));
-		strcpy(this->text,                 text)*/ text;
+		this->text = (char*) malloc(strlen(text));
+		strcpy(this->text,                 text);
 		
 	}
 	
@@ -159,7 +147,7 @@ texture_t create_texture_from_font(font_t this, char* text) {
 	kos_font_t* font = &kos_fonts[this];
 	kos_font_create_text(font, text);
 	
-	return texture_create(font->bmp.data, 32, font->bmp.width, font->bmp.height);
+	return 0;//texture_create(font->bmp.data, 32, font->bmp.width, font->bmp.height);
 	
 }
 
@@ -169,7 +157,7 @@ unsigned long long get_font_width(font_t this, char* text) {
 	kos_font_t* font = &kos_fonts[this];
 	kos_font_create_text(font, text);
 	
-	return font->bmp.width;
+	return 100;//font->bmp.width;
 	
 }
 
@@ -179,6 +167,6 @@ unsigned long long get_font_height(font_t this, char* text) {
 	kos_font_t* font = &kos_fonts[this];
 	kos_font_create_text(font, text);
 	
-	return font->bmp.height;
+	return 100;//font->bmp.height;
 	
 }
