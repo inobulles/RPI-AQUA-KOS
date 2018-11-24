@@ -34,3 +34,5 @@ void get_events(event_list_t* self) {
 	self->pointer_click_type = 0;//!system("rm click > /dev/null");
 	
 }
+
+#include "predefined_textures.h"
