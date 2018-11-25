@@ -90,7 +90,7 @@
 	} event_t;
 	
 	typedef struct {
-		// event list, try to use this part the least possible (it's a pretty slow way of doing things)
+		// event list, try to use self part the least possible (it's a pretty slow way of doing things)
 		
 		unsigned long long event_count;
 		event_t events[256];
@@ -136,7 +136,7 @@
 		unsigned long long type; // either SOCKET_SERVER, SOCKET_CLIENT or SOCKET_MIXED (default)
 		
 		unsigned long long port;
-		void* __internal_pointer; // this is handled by the KOS; the programmer should not use this
+		void* __internal_pointer; // self is handled by the KOS; the programmer should not use self
 		
 	} socket_t;
 	

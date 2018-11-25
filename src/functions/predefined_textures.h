@@ -5,10 +5,10 @@ static texture_t predefined_frost_background_texture;
 static unsigned long long predefined_background_texture_dimensions      [2];
 static unsigned long long predefined_frost_background_texture_dimensions[2];
 
-void bmp_load(bitmap_image_t* this, unsigned long long _path);
-void bmp_free(bitmap_image_t* this);
+void bmp_load(bitmap_image_t* self, unsigned long long _path);
+void bmp_free(bitmap_image_t* self);
 
-static int kos_setup_predefined_textures(kos_t* this) {
+static int kos_setup_predefined_textures(kos_t* self) {
 	int warning = 0;
 	bitmap_image_t temp_bmp;
 	
@@ -34,7 +34,7 @@ static int kos_setup_predefined_textures(kos_t* this) {
 	
 }
 
-static void kos_free_predefined_textures(kos_t* this) {
+static void kos_free_predefined_textures(kos_t* self) {
 	if (predefined_background_texture       != -1) texture_remove(predefined_background_texture);
 	if (predefined_frost_background_texture != -1) texture_remove(predefined_frost_background_texture);
 	

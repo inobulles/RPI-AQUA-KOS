@@ -12,7 +12,7 @@
 	} rainbow_t;
 	
 	rainbow_t rainbow(void) {
-		rainbow_t this = {
+		rainbow_t self = {
 			.direction = 0,
 			
 			.r = 1.0f,
@@ -21,44 +21,44 @@
 			
 		};
 		
-		return this;
+		return self;
 		
 	}
 	
-	void update_rainbow(rainbow_t* this, float delta) {
-		if (this->direction == 0) {
-			this->r -= delta;
-			this->g += delta;
+	void update_rainbow(rainbow_t* self, float delta) {
+		if (self->direction == 0) {
+			self->r -= delta;
+			self->g += delta;
 			
-		} else if (this->direction == 1) {
-			this->g -= delta;
-			this->b += delta;
+		} else if (self->direction == 1) {
+			self->g -= delta;
+			self->b += delta;
 			
-		} else if (this->direction == 2) {
-			this->r += delta;
-			this->b -= delta;
-			
-		}
-		
-		if (this->r < 0) {
-			this->direction++;
-			this->r = 0;
-			
-		} else if (this->g < 0) {
-			this->direction++;
-			this->g = 0;
-		
-		} else if (this->b < 0) {
-			this->r = 1.0f;
-			this->g = 0.0f;
-			this->b = 0.0f;
-			
-			this->direction++;
+		} else if (self->direction == 2) {
+			self->r += delta;
+			self->b -= delta;
 			
 		}
 		
-		if (this->direction > 2) {
-			this->direction = 0;
+		if (self->r < 0) {
+			self->direction++;
+			self->r = 0;
+			
+		} else if (self->g < 0) {
+			self->direction++;
+			self->g = 0;
+		
+		} else if (self->b < 0) {
+			self->r = 1.0f;
+			self->g = 0.0f;
+			self->b = 0.0f;
+			
+			self->direction++;
+			
+		}
+		
+		if (self->direction > 2) {
+			self->direction = 0;
 			
 		}
 		

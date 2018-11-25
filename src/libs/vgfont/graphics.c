@@ -5,13 +5,13 @@ All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
     * Redistributions of source code must retain the above copyright
-      notice, this list of conditions and the following disclaimer.
+      notice, self list of conditions and the following disclaimer.
     * Redistributions in binary form must reproduce the above copyright
-      notice, this list of conditions and the following disclaimer in the
+      notice, self list of conditions and the following disclaimer in the
       documentation and/or other materials provided with the distribution.
     * Neither the name of the copyright holder nor the
       names of its contributors may be used to endorse or promote products
-      derived from this software without specific prior written permission.
+      derived from self software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -111,7 +111,7 @@ static VCOS_STATUS_T create_context(EGLDisplay disp,
    EGLint nconfigs, attribs[32];
    n = gx_egl_attrib_colours(attribs, image_type);
 
-   // we want to be able to do OpenVG on this surface...
+   // we want to be able to do OpenVG on self surface...
    attribs[n++] = EGL_RENDERABLE_TYPE; attribs[n++] = EGL_OPENVG_BIT;
    attribs[n++] = EGL_SURFACE_TYPE;    attribs[n++] = EGL_WINDOW_BIT;
 
@@ -259,8 +259,8 @@ void gx_priv_restore(GX_CLIENT_STATE_T *state)
    GX_TRACE("gx_priv_restore: eglMakeCurrent: %s, res %x draw_surface %x, surface %x, cxt %x", vcos_thread_get_name(vcos_thread_current()),
       (uint32_t)state->res, (uint32_t)state->draw_surface, (uint32_t)state->read_surface, (uint32_t)state->context);
 
-   // disconnect our thread from this context, so we other threads can use it via
-   // this API
+   // disconnect our thread from self context, so we other threads can use it via
+   // self API
    egl_result = eglMakeCurrent(display.disp, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
    vcos_assert(egl_result);
 
@@ -503,8 +503,8 @@ int32_t graphics_resource_render_text_ext( GRAPHICS_RESOURCE_HANDLE res,
 int32_t graphics_resource_render_text(  GRAPHICS_RESOURCE_HANDLE res,
                                         const int32_t x,
                                         const int32_t y,
-                                        const uint32_t width, /* this can be GRAPHICS_RESOURCE_WIDTH for no clipping */
-                                        const uint32_t height, /* this can be GRAPHICS_RESOURCE_HEIGHT for no clipping */
+                                        const uint32_t width, /* self can be GRAPHICS_RESOURCE_WIDTH for no clipping */
+                                        const uint32_t height, /* self can be GRAPHICS_RESOURCE_HEIGHT for no clipping */
                                         const uint32_t fg_colour,
                                         const uint32_t bg_colour,
                                         const char *text,
@@ -1024,7 +1024,7 @@ int32_t graphics_userblt(GRAPHICS_RESOURCE_TYPE_T src_type,
    }
    else if (dest->type == GX_WINDOW)
    {
-      // need to invert this as VG thinks zero is at the bottom
+      // need to invert self as VG thinks zero is at the bottom
       // while graphics_x thinks it is at the top.
       vgWritePixels((uint8_t*)src_data + pitch*(height-1),
                     -pitch,
@@ -1401,7 +1401,7 @@ int32_t graphics_get_display_size( const uint16_t display_number,
 
    if(vcos_verify(display_number < MAX_DISPLAY_HANDLES))
    {
-      // TODO Shouldn't this close the display if it wasn't previously open?
+      // TODO Shouldn't self close the display if it wasn't previously open?
       if (gx_priv_open_screen(display_number, &disp) < 0)
       {
          vcos_assert(0);

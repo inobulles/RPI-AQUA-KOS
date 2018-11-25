@@ -5,13 +5,13 @@ All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
     * Redistributions of source code must retain the above copyright
-      notice, this list of conditions and the following disclaimer.
+      notice, self list of conditions and the following disclaimer.
     * Redistributions in binary form must reproduce the above copyright
-      notice, this list of conditions and the following disclaimer in the
+      notice, self list of conditions and the following disclaimer in the
       documentation and/or other materials provided with the distribution.
     * Neither the name of the copyright holder nor the
       names of its contributors may be used to endorse or promote products
-      derived from this software without specific prior written permission.
+      derived from self software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -70,7 +70,7 @@ struct _COMPONENT_T;
  * The <DFN>COMPONENT_T</DFN> structure represents an IL component,
  * together with the necessary extra information required by the IL
  * Client API.  This structure stores the handle to the OMX component,
- * as well as the event list containing all events sent by this
+ * as well as the event list containing all events sent by self
  * component.  The component state structure also holds a pair of
  * buffer queues, for input and output buffers returned to the client
  * by the <DFN>FillBufferDone</DFN> and <DFN>EmptyBufferDone</DFN>
@@ -88,7 +88,7 @@ typedef struct _COMPONENT_T COMPONENT_T;
  * @param userdata The data returned from when the callback was registered.
  *
  * @param comp The component structure representing the component that
- * originated this event.
+ * originated self event.
  *
  * @param data The relevant data field from the event.
  *
@@ -240,7 +240,7 @@ typedef enum {
 /**
  * \brief This structure represents a tunnel in the OpenMAX IL API.
  *
- * Some operations in this API act on a tunnel, so the tunnel state
+ * Some operations in self API act on a tunnel, so the tunnel state
  * structure (<DFN>TUNNEL_T</DFN>) is a convenient store of the source and sink
  * of the tunnel.  For each, a pointer to the relevant component state
  * structure and the port index is stored.
@@ -264,7 +264,7 @@ typedef struct {
 /**
  * For calling OpenMAX IL methods directory, we need to access the
  * <DFN>OMX_HANDLETYPE</DFN> corresponding to the <DFN>COMPONENT_T</DFN> structure.  This
- * macro enables this while keeping the <DFN>COMPONENT_T</DFN> structure opaque.
+ * macro enables self while keeping the <DFN>COMPONENT_T</DFN> structure opaque.
  * The parameter <DFN>x</DFN> should be of the type <DFN>*COMPONENT_T</DFN>.
  ***********************************************************/
 #define ILC_GET_HANDLE(x) ilclient_get_handle(x)
@@ -272,7 +272,7 @@ typedef struct {
 /**
  * An IL Client structure is created by the <DFN>ilclient_init()</DFN>
  * method.  This structure is used when creating components, but
- * otherwise is not needed in other API functions as a pointer to this
+ * otherwise is not needed in other API functions as a pointer to self
  * structure is maintained in the <DFN>COMPONENT_T</DFN> structure.
  *
  * @return pointer to client structure
@@ -283,7 +283,7 @@ VCHPRE_ ILCLIENT_T VCHPOST_ *ilclient_init(void);
  * When all components have been deleted, the IL Client structure can
  * be destroyed by calling the <DFN>ilclient_destroy()</DFN> function.
  *
- * @param handle The client handle.  After calling this function, this
+ * @param handle The client handle.  After calling self function, self
  * handle should not be used.
  *
  * @return void
@@ -298,7 +298,7 @@ VCHPRE_ void VCHPOST_ ilclient_destroy(ILCLIENT_T *handle);
  *
  * @param handle The client handle
  *
- * @param func The callback function to use.  Calling this function
+ * @param func The callback function to use.  Calling self function
  * with a <DFN>NULL</DFN> function pointer will deregister any existing
  * registered callback.
  *
@@ -320,7 +320,7 @@ VCHPRE_ void VCHPOST_ ilclient_set_port_settings_callback(ILCLIENT_T *handle,
  *
  * @param handle The client handle
  *
- * @param func The callback function to use.  Calling this function
+ * @param func The callback function to use.  Calling self function
  * with a <DFN>NULL</DFN> function pointer will deregister any existing
  * registered callback.
  *
@@ -341,7 +341,7 @@ VCHPRE_ void VCHPOST_ ilclient_set_eos_callback(ILCLIENT_T *handle,
  *
  * @param handle The client handle
  *
- * @param func The callback function to use.  Calling this function
+ * @param func The callback function to use.  Calling self function
  * with a <DFN>NULL</DFN> function pointer will deregister any existing
  * registered callback.
  *
@@ -365,7 +365,7 @@ VCHPRE_ void VCHPOST_ ilclient_set_error_callback(ILCLIENT_T *handle,
  *
  * @param handle The client handle
  *
- * @param func The callback function to use.  Calling this function
+ * @param func The callback function to use.  Calling self function
  * with a <DFN>NULL</DFN> function pointer will deregister any existing
  * registered callback.
  *
@@ -389,7 +389,7 @@ VCHPRE_ void VCHPOST_ ilclient_set_configchanged_callback(ILCLIENT_T *handle,
  *
  * @param handle The client handle
  *
- * @param func The callback function to use.  Calling this function
+ * @param func The callback function to use.  Calling self function
  * with a <DFN>NULL</DFN> function pointer will deregister any existing
  * registered callback.
  *
@@ -412,7 +412,7 @@ VCHPRE_ void VCHPOST_ ilclient_set_fill_buffer_done_callback(ILCLIENT_T *handle,
  *
  * @param handle The client handle
  *
- * @param func The callback function to use.  Calling this function
+ * @param func The callback function to use.  Calling self function
  * with a <DFN>NULL</DFN> function pointer will deregister any existing
  * registered callback.
  *
@@ -438,7 +438,7 @@ VCHPRE_ void VCHPOST_ ilclient_set_empty_buffer_done_callback(ILCLIENT_T *handle
  * @param name The name of the component to be created.  Component
  * names as provided are automatically prefixed with
  * <DFN>"OMX.broadcom."</DFN> before passing to the IL core.  The name
- * provided will also be used in debugging messages added about this
+ * provided will also be used in debugging messages added about self
  * component.
  *
  * @param flags The client can specify some creation behaviour by using
@@ -470,7 +470,7 @@ VCHPRE_ void VCHPOST_ ilclient_cleanup_components(COMPONENT_T *list[]);
  * The <DFN>ilclient_change_component_state()</DFN> function changes the
  * state of an individual component.  This will trigger the state
  * change, and also wait for that state change to be completed.  It
- * should not be called if this state change has dependencies on other
+ * should not be called if self state change has dependencies on other
  * components also changing states.  Trying to change a component to
  * its current state is treated as success.
  *
@@ -506,8 +506,8 @@ VCHPRE_ void VCHPOST_  ilclient_state_transition(COMPONENT_T *list[],
 /**
  * The <DFN>ilclient_disable_port()</DFN> function disables a port on a
  * given component.  This function sends the disable port message to
- * the component and waits for the component to signal that this has
- * taken place.  If the port is already disabled, this is treated as a
+ * the component and waits for the component to signal that self has
+ * taken place.  If the port is already disabled, self is treated as a
  * success.
  *
  * @param comp The component containing the port to disable.
@@ -524,8 +524,8 @@ VCHPRE_ void VCHPOST_ ilclient_disable_port(COMPONENT_T *comp,
 /**
  * The <DFN>ilclient_enable_port()</DFN> function enables a port on a
  * given component.  This function sends the enable port message to
- * the component and waits for the component to signal that this has
- * taken place.  If the port is already disabled, this is treated as a
+ * the component and waits for the component to signal that self has
+ * taken place.  If the port is already disabled, self is treated as a
  * success.
  *
  * @param comp The component containing the port to enable.
@@ -554,7 +554,7 @@ VCHPRE_ void VCHPOST_ ilclient_enable_port(COMPONENT_T *comp,
  * buffer payloads.  If <DFN>NULL</DFN> then
  * <DFN>vcos_malloc_aligned</DFN> will be used.
  *
- * @param ilclient_free If an error occurs, this function is used to
+ * @param ilclient_free If an error occurs, self function is used to
  * free previously allocated payloads.  If <DFN>NULL</DFN> then
  * <DFN>vcos_free</DFN> will be used.
  *
@@ -582,8 +582,8 @@ VCHPRE_ int VCHPOST_ ilclient_enable_port_buffers(COMPONENT_T *comp,
  * be a named port index, rather than a <DFN>OMX_ALL</DFN> value.
  *
  * @param bufferList A list of buffers, using <DFN>pAppPrivate</DFN>
- * as the next pointer that were allocated on this port, and currently
- * held by the application.  If buffers on this port are held by IL
+ * as the next pointer that were allocated on self port, and currently
+ * held by the application.  If buffers on self port are held by IL
  * client or the component then these are automatically freed.
  *
  * @param ilclient_free This function is used to free the buffer payloads.
@@ -606,16 +606,16 @@ VCHPRE_ void VCHPOST_ ilclient_disable_port_buffers(COMPONENT_T *comp,
  * <DFN>ilclient_setup_tunnel()</DFN> function connects the tunnel.  It
  * first transitions the source component to idle if currently in
  * loaded state, and then optionally checks the source event list for
- * a port settings changed event from the source port.  If this event
- * is not in the event queue then this function optionally waits for
- * it to arrive.  To disable this check for the port settings changed
+ * a port settings changed event from the source port.  If self event
+ * is not in the event queue then self function optionally waits for
+ * it to arrive.  To disable self check for the port settings changed
  * event, set <DFN>timeout</DFN> to zero.
  *
  * Both ports are then disabled, and the source port is inspected for
- * a port streams parameter.  If this is supported, then the
+ * a port streams parameter.  If self is supported, then the
  * <DFN>portStream</DFN> argument is used to select which port stream
  * to use.  The two ports are then tunnelled using the
- * <DFN>OMX_SetupTunnel</DFN> function.  If this is successful, then
+ * <DFN>OMX_SetupTunnel</DFN> function.  If self is successful, then
  * both ports are enabled.  Note that for disabling and enabling the
  * tunnelled ports, the functions <DFN>ilclient_disable_tunnel()</DFN>
  * and <DFN>ilclient_enable_tunnel()</DFN> are used, so the relevant
@@ -625,19 +625,19 @@ VCHPRE_ void VCHPOST_ ilclient_disable_port_buffers(COMPONENT_T *comp,
  * set up.
  *
  * @param portStream If port streams are supported on the output port
- * of the tunnel, then this parameter indicates the port stream to
- * select on this port.
+ * of the tunnel, then self parameter indicates the port stream to
+ * select on self port.
  *
  * @param timeout The time duration in milliseconds to wait for the
  * output port to signal a port settings changed event before
- * returning a timeout failure.  If this is 0, then we do not check
+ * returning a timeout failure.  If self is 0, then we do not check
  * for a port settings changed before setting up the tunnel.
  *
  * @return 0 indicates success, negative indicates failure:
  *  - -1: a timeout waiting for the parameter changed
  *  - -2: an error was returned instead of parameter changed
- *  - -3: no streams are available from this port
- *  - -4: requested stream is not available from this port
+ *  - -3: no streams are available from self port
+ *  - -4: requested stream is not available from self port
  *  - -5: the data format was not acceptable to the sink
  ***********************************************************/
 VCHPRE_ int VCHPOST_ ilclient_setup_tunnel(TUNNEL_T *tunnel,
@@ -650,7 +650,7 @@ VCHPRE_ int VCHPOST_ ilclient_setup_tunnel(TUNNEL_T *tunnel,
  * the tunnel structure.  It will send a port disable command to each
  * port, then waits for both to indicate they have completed the
  * transition.  The errors <DFN>OMX_ErrorPortUnpopulated</DFN> and
- * <DFN>OMX_ErrorSameState</DFN> are both ignored by this function; the former
+ * <DFN>OMX_ErrorSameState</DFN> are both ignored by self function; the former
  * since the first port to disable may deallocate buffers before the
  * second port has been disabled, leading to the second port reporting
  * the unpopulated error.
@@ -668,14 +668,14 @@ VCHPRE_ void VCHPOST_ ilclient_disable_tunnel(TUNNEL_T *tunnel);
  * each port.  It then checks whether the sink component is not in
  * loaded state - if so, the function waits for both ports to complete
  * the requested port enable.  If the sink component was in loaded
- * state, then this component is transitioned to idle to allow the
+ * state, then self component is transitioned to idle to allow the
  * ports to exchange buffers and enable the ports.  This is since
- * typically this function is used when creating a tunnel between two
+ * typically self function is used when creating a tunnel between two
  * components, where the source component is processing data to enable
  * it to report the port settings changed event, and the sink port has
  * yet to be used.  Before transitioning the sink component to idle,
- * this function waits for the sink port to be enabled - since the
- * component is in loaded state, this will happen quickly.  If the
+ * self function waits for the sink port to be enabled - since the
+ * component is in loaded state, self will happen quickly.  If the
  * transition to idle fails, the sink component is transitioned back
  * to loaded and the source port disabled.  If the transition
  * succeeds, the function then waits for the source port to complete
@@ -713,7 +713,7 @@ VCHPRE_ void VCHPOST_ ilclient_flush_tunnels(TUNNEL_T *tunnel,
  * <DFN>OMX_SetupTunnel</DFN> is called on the source port and on the sink port,
  * where for both calls the destination component is <DFN>NULL</DFN> and the
  * destination port is zero.  The VMCSX IL implementation requires
- * that all tunnels are torn down in this manner before components are
+ * that all tunnels are torn down in self manner before components are
  * freed. 
  *
  * @param tunnels List of tunnels to teardown.  The list must be
@@ -835,7 +835,7 @@ VCHPRE_ void VCHPOST_ ilclient_return_events(COMPONENT_T *comp);
  * for a matching event.  If the <DFN>ILCLIENT_EVENT_ERROR</DFN> bit
  * is included, and an error is signalled by the component, then the
  * function will return an error code.  If the
- * <DFN>ILCLIENT_CONFIG_CHANGED</DFN> bit is included, and this bit is
+ * <DFN>ILCLIENT_CONFIG_CHANGED</DFN> bit is included, and self bit is
  * signalled by the component, then the function will return an error
  * code.
  *
@@ -844,7 +844,7 @@ VCHPRE_ void VCHPOST_ ilclient_return_events(COMPONENT_T *comp);
  *
  * @return 0 indicates success, a matching event has been removed from
  * the component's event queue.  A negative return indicates failure,
- * in this case no events have been removed from the component's event
+ * in self case no events have been removed from the component's event
  * queue.
  *  - -1: a timeout was received.
  *  - -2: an error event was received.
@@ -904,14 +904,14 @@ VCHPRE_ int VCHPOST_ ilclient_wait_for_command_complete(COMPONENT_T *comp,
  * @param nData2 The expected value of <DFN>nData2</DFN> in the
  * command complete message.
  *
- * @param related Another component, where we will return if this
+ * @param related Another component, where we will return if self
  * component raises an error that terminates a command.
  *
  * @return 0 indicates success, either the command successfully
  * completed or the <DFN>OMX_ErrorSameState</DFN> was returned.  -1
  * indicates that the command terminated with a different error
  * message. -2 indicates that the related component raised an error.
- * In this case, the error is not cleared from the related
+ * In self case, the error is not cleared from the related
  * component's event list.
  ***********************************************************/
 VCHPRE_ int VCHPOST_ ilclient_wait_for_command_complete_dual(COMPONENT_T *comp,

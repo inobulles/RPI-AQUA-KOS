@@ -17,7 +17,7 @@
 	} animation_t;
 	
 	animation_t animation(float base, float prolongment) {
-		animation_t this = {
+		animation_t self = {
 			.time = 3,
 			
 			.prolongment = prolongment,
@@ -31,31 +31,31 @@
 			
 		};
 		
-		return this;
+		return self;
 		
 	}
 	
-	void reset_animation(animation_t* this) {
-		this->prolongment = this->original_prolongment;
-		this->base = this->original_base;
+	void reset_animation(animation_t* self) {
+		self->prolongment = self->original_prolongment;
+		self->base = self->original_base;
 		
-		this->scale = 0.0f;
-		this->elapsed = 0.0f;
+		self->scale = 0.0f;
+		self->elapsed = 0.0f;
 		
 	}
 	
-	float animate(animation_t* this, float delta) {
-		this->elapsed++;
+	float animate(animation_t* self, float delta) {
+		self->elapsed++;
 		
-		this->scale += ((this->scale / 10.0f) + 0.2f) * delta * 60.0f / this->prolongment;
-		this->base = 1.0f / (this->scale + 1.0f);
+		self->scale += ((self->scale / 10.0f) + 0.2f) * delta * 60.0f / self->prolongment;
+		self->base = 1.0f / (self->scale + 1.0f);
 		
-		if (this->elapsed > 70 * this->time) {
-			this->base = 0.0f;
+		if (self->elapsed > 70 * self->time) {
+			self->base = 0.0f;
 			
 		}
 		
-		return this->base;
+		return self->base;
 		
 	}
 	

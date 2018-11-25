@@ -18,7 +18,7 @@
 	} rectangle_t;
 
 	rectangle_t new_rectangle(unsigned int x, unsigned int y, unsigned int width, unsigned int height) {
-		rectangle_t this = {
+		rectangle_t self = {
 			.x = x,
 			.y = y,
 
@@ -31,15 +31,15 @@
 
 		};
 
-		return this;
+		return self;
 
 	}
 
-	void draw_rectangle(rectangle_t* this) {
+	void draw_rectangle(rectangle_t* self) {
 		glEnable(GL_SCISSOR_TEST);
-		glScissor(this->x, this->y, this->width, this->height);
+		glScissor(self->x, self->y, self->width, self->height);
 
-		glClearColor(this->r, this->g, this->b, 1.0f);
+		glClearColor(self->r, self->g, self->b, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glDisable(GL_SCISSOR_TEST);

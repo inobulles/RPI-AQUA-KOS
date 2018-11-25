@@ -54,8 +54,8 @@
 		
 	}
 	
-	void texture_remove(texture_t this) {
-		glDeleteTextures(1, (GLuint*) &this);
+	void texture_remove(texture_t self) {
+		glDeleteTextures(1, (GLuint*) &self);
 		
 	}
 	

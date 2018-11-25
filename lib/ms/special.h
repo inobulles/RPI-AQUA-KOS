@@ -1,0 +1,3 @@
+
+#define MS_SPECIAL_NONE 0
+#define MS_SPECIAL_RAINBOW 1

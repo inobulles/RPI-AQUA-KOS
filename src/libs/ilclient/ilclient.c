@@ -5,13 +5,13 @@ All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
     * Redistributions of source code must retain the above copyright
-      notice, this list of conditions and the following disclaimer.
+      notice, self list of conditions and the following disclaimer.
     * Redistributions in binary form must reproduce the above copyright
-      notice, this list of conditions and the following disclaimer in the
+      notice, self list of conditions and the following disclaimer in the
       documentation and/or other materials provided with the distribution.
     * Neither the name of the copyright holder nor the
       names of its contributors may be used to endorse or promote products
-      derived from this software without specific prior written permission.
+      derived from self software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -63,7 +63,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static VCOS_LOG_CAT_T ilclient_log_category;
 
 /******************************************************************************
-Static data and types used only in this file.
+Static data and types used only in self file.
 ******************************************************************************/
 
 struct _ILEVENT_T {
@@ -437,7 +437,7 @@ int ilclient_remove_event(COMPONENT_T *st, OMX_EVENTTYPE eEvent,
 
    // if we're removing an OMX_EventError or OMX_EventParamOrConfigChanged event, then clear the error bit from the eventgroup,
    // since the user might have been notified through the error callback, and then 
-   // can't clear the event bit - this will then cause problems the next time they
+   // can't clear the event bit - self will then cause problems the next time they
    // wait for an error.
    if(eEvent == OMX_EventError)
       vcos_event_flags_get(&st->event, ILCLIENT_EVENT_ERROR, VCOS_OR_CONSUME, 0, &set);
@@ -487,7 +487,7 @@ void ilclient_state_transition(COMPONENT_T *list[], OMX_STATETYPE state)
       list[min]->private = 0;
 
       random_wait();
-      //Clear error event for this component
+      //Clear error event for self component
       vcos_event_flags_get(&list[min]->event, ILCLIENT_EVENT_ERROR, VCOS_OR_CONSUME, 0, &set);
 
       error = OMX_SendCommand(list[min]->comp, OMX_CommandStateSet, state, NULL);
@@ -598,7 +598,7 @@ int ilclient_enable_tunnel(TUNNEL_T *tunnel)
       {
          if(ret == -2)
          {
-            // the error was reported fom the source component: clear this error and disable the sink component
+            // the error was reported fom the source component: clear self error and disable the sink component
             ilclient_wait_for_command_complete(tunnel->source, OMX_CommandPortEnable, tunnel->source_port);
             ilclient_disable_port(tunnel->sink, tunnel->sink_port);
          }
@@ -732,7 +732,7 @@ void ilclient_cleanup_components(COMPONENT_T *list[])
 /***********************************************************
  * Name: ilclient_change_component_state
  *
- * Description: changes the state of a single component.  Note: this
+ * Description: changes the state of a single component.  Note: self
  * may not be suitable if the component is tunnelled and requires
  * connected components to also change state.
  *
@@ -870,7 +870,7 @@ int ilclient_enable_port_buffers(COMPONENT_T *comp, int portIndex,
    {
       ilclient_disable_port_buffers(comp, portIndex, NULL, ilclient_free, private);
 
-      // at this point the first command might have terminated with an error, which means that
+      // at self point the first command might have terminated with an error, which means that
       // the port is disabled before the disable_port_buffers function is called, so we're left
       // with the error bit set and an error event in the queue.  Clear these now if they exist.
       ilclient_remove_event(comp, OMX_EventError, 0, 1, 1, 0);
@@ -926,7 +926,7 @@ void ilclient_disable_port_buffers(COMPONENT_T *comp, int portIndex,
       {
          vcos_semaphore_wait(&comp->sema);
          
-         // take buffers for this port off the relevant queue
+         // take buffers for self port off the relevant queue
          head = portdef.eDir == OMX_DirInput ? &comp->in_list : &comp->out_list;
          clist = *head;
          prev = NULL;
@@ -1006,8 +1006,8 @@ void ilclient_disable_port_buffers(COMPONENT_T *comp, int portIndex,
  * Returns: 0 indicates success, negative indicates failure.
  * -1: a timeout waiting for the parameter changed
  * -2: an error was returned instead of parameter changed
- * -3: no streams are available from this port
- * -4: requested stream is not available from this port
+ * -3: no streams are available from self port
+ * -4: requested stream is not available from self port
  * -5: the data format was not acceptable to the sink
  ***********************************************************/
 int ilclient_setup_tunnel(TUNNEL_T *tunnel, unsigned int portStream, int timeout)
@@ -1042,7 +1042,7 @@ int ilclient_setup_tunnel(TUNNEL_T *tunnel, unsigned int portStream, int timeout
    // disable ports
    ilclient_disable_tunnel(tunnel);
 
-   // if this source port uses port streams, we need to select one of them before proceeding
+   // if self source port uses port streams, we need to select one of them before proceeding
    // if getparameter causes an error that's fine, nothing needs selecting
    param.nSize = sizeof(OMX_PARAM_U32TYPE);
    param.nVersion.nVersion = OMX_VERSION;
@@ -1083,7 +1083,7 @@ int ilclient_setup_tunnel(TUNNEL_T *tunnel, unsigned int portStream, int timeout
       
       if(enable_error)
       {
-         //Clean up the errors. This does risk removing an error that was nothing to do with this tunnel :-/
+         //Clean up the errors. This does risk removing an error that was nothing to do with self tunnel :-/
          ilclient_remove_event(tunnel->sink, OMX_EventError, 0, 1, 0, 1);
          ilclient_remove_event(tunnel->source, OMX_EventError, 0, 1, 0, 1);
       }
@@ -1171,7 +1171,7 @@ int ilclient_wait_for_event(COMPONENT_T *comp, OMX_EVENTTYPE event,
  * Name: ilclient_wait_for_command_complete_dual
  *
  * Description: Waits for an event signalling command completion.  In
- * this version we may also return failure if there is an error event
+ * self version we may also return failure if there is an error event
  * that has terminated a command on a second component.
  *
  * Returns: 0 on success, -1 on failure of comp, -2 on failure of other
@@ -1214,7 +1214,7 @@ int ilclient_wait_for_command_complete_dual(COMPONENT_T *comp, OMX_COMMANDTYPE c
          else
             prev->next = cur->next;
 
-         // work out whether this was a success or a fail event
+         // work out whether self was a success or a fail event
          ret = cur->eEvent == OMX_EventCmdComplete || cur->nData1 == OMX_ErrorSameState ? 0 : -1;
 
          if(cur->eEvent == OMX_EventError)
@@ -1237,8 +1237,8 @@ int ilclient_wait_for_command_complete_dual(COMPONENT_T *comp, OMX_COMMANDTYPE c
 
          if(cur)
          {
-            // we don't remove the event in this case, since the user
-            // can confirm that this event errored by calling wait_for_command on the
+            // we don't remove the event in self case, since the user
+            // can confirm that self event errored by calling wait_for_command on the
             // other component
 
             ret = -2;
@@ -1422,7 +1422,7 @@ static OMX_ERRORTYPE ilclient_event_handler(OMX_IN OMX_HANDLETYPE hComponent,
 
    ilclient_lock_events(st->client);
 
-   // go through the events on this component and remove any duplicates in the
+   // go through the events on self component and remove any duplicates in the
    // existing list, since the client probably doesn't need them.  it's better
    // than asserting when we run out.
    event = st->list;
@@ -1435,7 +1435,7 @@ static OMX_ERRORTYPE ilclient_event_handler(OMX_IN OMX_HANDLETYPE hComponent,
             (*list)->nData1 == event->nData1 &&
             (*list)->nData2 == event->nData2)
          {
-            // remove this duplicate
+            // remove self duplicate
             ILEVENT_T *rem = *list;
             ilclient_debug_output("%s: removing %d/%d/%d", st->name, event->eEvent, event->nData1, event->nData2);            
             *list = rem->next;
@@ -1482,8 +1482,8 @@ static OMX_ERRORTYPE ilclient_event_handler(OMX_IN OMX_HANDLETYPE hComponent,
       break;
    case OMX_EventError:
       {
-         // check if this component failed a command, and we have to notify another command
-         // of this failure
+         // check if self component failed a command, and we have to notify another command
+         // of self failure
          if(nData2 == 1 && st->related != NULL)
             vcos_event_flags_set(&st->related->event, ILCLIENT_EVENT_ERROR, VCOS_OR);
 
@@ -1686,7 +1686,7 @@ static OMX_ERRORTYPE ilclient_empty_buffer_done(OMX_IN OMX_HANDLETYPE hComponent
  * Name: ilclient_empty_buffer_done_error
  *
  * Description: passed to core to use as component callback, asserts
- * on use as client not expecting component to use this callback.
+ * on use as client not expecting component to use self callback.
  *
  * Returns:
  ***********************************************************/
@@ -1742,7 +1742,7 @@ static OMX_ERRORTYPE ilclient_fill_buffer_done(OMX_OUT OMX_HANDLETYPE hComponent
  * Name: ilclient_fill_buffer_done_error
  *
  * Description: passed to core to use as component callback, asserts
- * on use as client not expecting component to use this callback.
+ * on use as client not expecting component to use self callback.
  *
  * Returns:
  ***********************************************************/
@@ -1790,7 +1790,7 @@ int ilclient_get_port_index(COMPONENT_T *comp, OMX_DIRTYPE dir, OMX_PORTDOMAINTY
          error = OMX_GetParameter(ILC_GET_HANDLE(comp), port_types[i].param, &param);
          assert(error == OMX_ErrorNone);
 
-         // for each port of this type...
+         // for each port of self type...
          for (j=0; j<param.nPorts; j++)
          {
             int port = param.nStartPortNumber+j;

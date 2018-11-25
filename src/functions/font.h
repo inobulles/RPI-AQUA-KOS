@@ -21,17 +21,17 @@ static kos_font_t kos_fonts[KOS_MAX_FONTS];
 
 #ifndef KOS_CHECK_FONT
 	#define KOS_CHECK_FONT(return_value) { \
-		if (this < 0 && this >= KOS_MAX_FONTS && !kos_fonts[this].used) { \
-			printf("WARNING Font %lld does not exist\n", this); \
+		if (self < 0 && self >= KOS_MAX_FONTS && !kos_fonts[self].used) { \
+			printf("WARNING Font %lld does not exist\n", self); \
 			return (return_value); \
 		} \
 	}
 #endif
 
-static void kos_unuse_font(kos_font_t* this) {
-	this->used    = 0;
-	this->text    = NULL;
-	this->has_bmp = 0;
+static void kos_unuse_font(kos_font_t* self) {
+	self->used    = 0;
+	self->text    = NULL;
+	self->has_bmp = 0;
 	
 }
 
@@ -82,21 +82,21 @@ void update_all_font_sizes(void) {
 	
 }
 
-static void kos_font_create_text(kos_font_t* this, char* text) {
-	if          (this->text == NULL || strcmp(text, this->text) != 0) {
-		if      (this->text) {
-			free(this->text);
+static void kos_font_create_text(kos_font_t* self, char* text) {
+	if          (self->text == NULL || strcmp(text, self->text) != 0) {
+		if      (self->text) {
+			free(self->text);
 			
 		}
 		
-		if (this->has_bmp) {
-			this->has_bmp = 1;
-			bmp_free(&this->bmp);
+		if (self->has_bmp) {
+			self->has_bmp = 1;
+			bmp_free(&self->bmp);
 				
 		}
 		
-		this->text = (char*) malloc(strlen(text) + 1);
-		strcpy(this->text,                 text);
+		self->text = (char*) malloc(strlen(text) + 1);
+		strcpy(self->text,                 text);
 		
 		#define TEMP_TEXT_RESULT_IMAGE      ".__temp_text_result.bmp"
 		#define TEMP_TEXT_RESULT_IMAGE_ROOT "root/" TEMP_TEXT_RESULT_IMAGE
@@ -104,60 +104,60 @@ static void kos_font_create_text(kos_font_t* this, char* text) {
 		#define TEMP_TEXT_RESULT_TEXT       ".__temp_text_text.bmp"
 		#define TEMP_TEXT_RESULT_TEXT_ROOT  "root/" TEMP_TEXT_RESULT_TEXT
 		
-		fs_write((unsigned long long) TEMP_TEXT_RESULT_TEXT, (unsigned long long) this->text, strlen(this->text) + 1);
+		fs_write((unsigned long long) TEMP_TEXT_RESULT_TEXT, (unsigned long long) self->text, strlen(self->text) + 1);
 		
 		#define                          ORIGINAL_COMMAND_BYTES 256
-		char*   command = (char*) malloc(ORIGINAL_COMMAND_BYTES + strlen(this->text));
-		sprintf(command, "convert -background transparent -fill white -font \"%s\" -pointsize %d label:@" TEMP_TEXT_RESULT_TEXT_ROOT " " TEMP_TEXT_RESULT_IMAGE_ROOT, this->path, (int) (this->size * video_width()));
+		char*   command = (char*) malloc(ORIGINAL_COMMAND_BYTES + strlen(self->text));
+		sprintf(command, "convert -background transparent -fill white -font \"%s\" -pointsize %d label:@" TEMP_TEXT_RESULT_TEXT_ROOT " " TEMP_TEXT_RESULT_IMAGE_ROOT, self->path, (int) (self->size * video_width()));
 		system (command);
 		
-		bmp_load(&this->bmp,   (unsigned long long) TEMP_TEXT_RESULT_IMAGE);
+		bmp_load(&self->bmp,   (unsigned long long) TEMP_TEXT_RESULT_IMAGE);
 		system("rm " TEMP_TEXT_RESULT_TEXT_ROOT " " TEMP_TEXT_RESULT_IMAGE_ROOT);
 		
 	}
 	
 }
 
-unsigned long long font_remove(font_t this) {
+unsigned long long font_remove(font_t self) {
 	KOS_CHECK_FONT(-1)
 	
-	if      (kos_fonts[this].text != NULL) {
-		free(kos_fonts[this].text);
+	if      (kos_fonts[self].text != NULL) {
+		free(kos_fonts[self].text);
 		
-	} if         (kos_fonts[this].has_bmp) {
-		bmp_free(&kos_fonts[this].bmp);
+	} if         (kos_fonts[self].has_bmp) {
+		bmp_free(&kos_fonts[self].bmp);
 		
 	}
 	
-	kos_unuse_font(&kos_fonts[this]);
+	kos_unuse_font(&kos_fonts[self]);
 	return 0;
 	
 }
 
-texture_t create_texture_from_font(font_t this, char* text) {
+texture_t create_texture_from_font(font_t self, char* text) {
 	KOS_CHECK_FONT(0)
 	
-	kos_font_t* font = &kos_fonts[this];
+	kos_font_t* font = &kos_fonts[self];
 	kos_font_create_text(font, text);
 	
 	return texture_create(font->bmp.data, 32, font->bmp.width, font->bmp.height);
 	
 }
 
-unsigned long long get_font_width(font_t this, char* text) {
+unsigned long long get_font_width(font_t self, char* text) {
 	KOS_CHECK_FONT(-1)
 	
-	kos_font_t* font = &kos_fonts[this];
+	kos_font_t* font = &kos_fonts[self];
 	kos_font_create_text(font, text);
 	
 	return font->bmp.width;
 	
 }
 
-unsigned long long get_font_height(font_t this, char* text) {
+unsigned long long get_font_height(font_t self, char* text) {
 	KOS_CHECK_FONT(-1)
 	
-	kos_font_t* font = &kos_fonts[this];
+	kos_font_t* font = &kos_fonts[self];
 	kos_font_create_text(font, text);
 	
 	return font->bmp.height;
