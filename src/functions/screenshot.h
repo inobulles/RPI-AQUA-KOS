@@ -2,8 +2,6 @@
 #define CREATE_TEXTURE_FROM_SCREENSHOT_FUNCTION 1
 
 texture_t create_texture_from_screenshot(void) {
-	printf("STARTED SCREENSHOT\n");
-	
 	unsigned long long bpp   = 32;
 	unsigned long long bytes = video_width() * video_height() * (bpp / 8);
 	
@@ -29,8 +27,6 @@ texture_t create_texture_from_screenshot(void) {
 		printf("WARNING Could not create texture from screenshot\n");
 		
 	}
-	
-	printf("ENDED SCREENSHOT\n");
 	
 	return texture;
 	
