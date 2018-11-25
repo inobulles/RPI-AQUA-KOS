@@ -4,7 +4,7 @@
 
 	#include "root.h"
 	
-	#define KOS_3D_VISUALIZATION 1
+	#define KOS_3D_VISUALIZATION 0
 	
 	void opengl_view(state_t* state) {
 		glColorMask(1, 1, 1, 0);
