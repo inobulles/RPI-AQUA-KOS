@@ -132,8 +132,8 @@ static void kos_font_create_text(kos_font_t* this, char* text) {
 		
 		#define                          ORIGINAL_COMMAND_BYTES 256
 		char*   command = (char*) malloc(ORIGINAL_COMMAND_BYTES + strlen(this->text));
-		printf("%s\n", path);
-		sprintf(command, "convert -background transparent -fill white -font \"%s\" -pointsize %d label:'%s' " TEMP_TEXT_RESULT_IMAGE_ROOT, path, (int) (this->size * video_width()), this->text);
+		printf("%s\n", this->path);
+		sprintf(command, "convert -background transparent -fill white -font \"%s\" -pointsize %d label:'%s' " TEMP_TEXT_RESULT_IMAGE_ROOT, this->path, (int) (this->size * video_width()), this->text);
 		system (command);
 		
 		bmp_load(&this->bmp, (unsigned long long) TEMP_TEXT_RESULT_IMAGE);
