@@ -1,4 +1,3 @@
-#include "../libs/vgfont/vgfont.h"
 
 typedef struct {
 	unsigned char used;
@@ -6,6 +5,9 @@ typedef struct {
 	float size;
 	char  path[MAX_PATH_LENGTH];
 	char* text;
+	
+	bitmap_image_t bmp;
+	unsigned char  has_bmp;
 	
 	//~ TTF_Font* font;
 	//~ SDL_Surface* surface;
@@ -31,6 +33,8 @@ static kos_font_t kos_fonts[KOS_MAX_FONTS];
 static void kos_unuse_font(kos_font_t* this) {
 	this->used    = 0;
 	this->text    = NULL;
+	this->has_bmp = 0;
+	
 	//~ this->font    = NULL;
 	//~ this->surface = NULL;
 	
@@ -108,14 +112,33 @@ void update_all_font_sizes(void) {
 }
 
 static void kos_font_create_text(kos_font_t* this, char* text) {
-	if (this->text == NULL || strcmp(text, this->text) != 0) {
+	if          (this->text == NULL || strcmp(text, this->text) != 0) {
 		if      (this->text) {
 			free(this->text);
 			
 		}
 		
+		if (this->has_bmp) {
+			this->has_bmp = 1;
+			bmp_free(&this->bmp);
+				
+		}
+		
 		this->text = (char*) malloc(strlen(text));
 		strcpy(this->text,                 text);
+		
+		#define TEMP_TEXT_RESULT_IMAGE_BMP  ".__temp_text_result.bmp"
+		#define TEMP_TEXT_RESULT_IMAGE "root/" TEMP_TEXT_RESULT_IMAGE_BMP
+		#define TEMP_TEXT_RESULT_TEXT  "root/.__temp_text_result.txt"
+		
+		fs_write(TEMP_TEXT_RESULT_TEXT, this->text, strlen(this->text));
+		
+		#define                          ORIGINAL_COMMAND_BYTES 256
+		char*   command = (char*) malloc(ORIGINAL_COMMAND_BYTES + strlen(this->text));
+		sprintf(command, "convert -background transparent -fill white -font \"%s\" -pointsize %d label:@" TEMP_TEXT_RESULT_TEXT " " TEMP_TEXT_RESULT_IMAGE, "Ubuntu", (int) this->size, this->text);
+		system (command);
+		bmp_load(&this->bmp, TEMP_TEXT_RESULT_IMAGE_BMP);
+		system ("rm " TEMP_TEXT_RESULT_IMAGE " " TEMP_TEXT_RESULT_TEXT);
 		
 	}
 	
@@ -126,6 +149,11 @@ unsigned long long font_remove(font_t this) {
 	
 	if (kos_fonts[this].text != NULL) {
 		free(kos_fonts[this].text);
+		
+	}
+	
+	if (this->has_bmp) {
+		bmp_free(&this->bmp);
 		
 	}
 	
@@ -147,7 +175,7 @@ texture_t create_texture_from_font(font_t this, char* text) {
 	kos_font_t* font = &kos_fonts[this];
 	kos_font_create_text(font, text);
 	
-	return 0;//texture_create(font->bmp.data, 32, font->bmp.width, font->bmp.height);
+	return texture_create(font->bmp.data, 32, font->bmp.width, font->bmp.height);
 	
 }
 
@@ -157,7 +185,7 @@ unsigned long long get_font_width(font_t this, char* text) {
 	kos_font_t* font = &kos_fonts[this];
 	kos_font_create_text(font, text);
 	
-	return 100;//font->bmp.width;
+	return font->bmp.width;
 	
 }
 
@@ -167,6 +195,6 @@ unsigned long long get_font_height(font_t this, char* text) {
 	kos_font_t* font = &kos_fonts[this];
 	kos_font_create_text(font, text);
 	
-	return 100;//font->bmp.height;
+	return font->bmp.height;
 	
 }
