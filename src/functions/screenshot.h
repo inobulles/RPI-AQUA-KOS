@@ -6,7 +6,7 @@ texture_t create_texture_from_screenshot(void) {
 	unsigned long long bytes = video_width() * video_height() * (bpp / 8);
 	
 	unsigned char* pixels = (unsigned char*) malloc(bytes);
-	glReadBuffer(GL_FRONT);
+	//~ glReadBuffer(GL_FRONT);
 	glReadPixels(0, 0, (GLsizei) video_width(), (GLsizei) video_height(), GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 	
 	unsigned long long* data  = (unsigned long long*) malloc(bytes);
