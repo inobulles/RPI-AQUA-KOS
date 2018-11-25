@@ -131,13 +131,13 @@ static void kos_font_create_text(kos_font_t* this, char* text) {
 		#define TEMP_TEXT_RESULT_IMAGE "root/" TEMP_TEXT_RESULT_IMAGE_BMP
 		#define TEMP_TEXT_RESULT_TEXT  "root/.__temp_text_result.txt"
 		
-		fs_write(TEMP_TEXT_RESULT_TEXT, this->text, strlen(this->text));
+		fs_write((unsigned long long) TEMP_TEXT_RESULT_TEXT, (unsigned long long) this->text, strlen(this->text));
 		
 		#define                          ORIGINAL_COMMAND_BYTES 256
 		char*   command = (char*) malloc(ORIGINAL_COMMAND_BYTES + strlen(this->text));
-		sprintf(command, "convert -background transparent -fill white -font \"%s\" -pointsize %d label:@" TEMP_TEXT_RESULT_TEXT " " TEMP_TEXT_RESULT_IMAGE, "Ubuntu", (int) this->size, this->text);
+		sprintf(command, "convert -background transparent -fill white -font \"%s\" -pointsize %d label:@" TEMP_TEXT_RESULT_TEXT " " TEMP_TEXT_RESULT_IMAGE, "Ubuntu", (int) this->size);
 		system (command);
-		bmp_load(&this->bmp, TEMP_TEXT_RESULT_IMAGE_BMP);
+		bmp_load(&this->bmp, (unsigned long long) TEMP_TEXT_RESULT_IMAGE_BMP);
 		system ("rm " TEMP_TEXT_RESULT_IMAGE " " TEMP_TEXT_RESULT_TEXT);
 		
 	}
@@ -147,13 +147,11 @@ static void kos_font_create_text(kos_font_t* this, char* text) {
 unsigned long long font_remove(font_t this) {
 	KOS_CHECK_FONT(-1)
 	
-	if (kos_fonts[this].text != NULL) {
+	if      (kos_fonts[this].text != NULL) {
 		free(kos_fonts[this].text);
 		
-	}
-	
-	if (this->has_bmp) {
-		bmp_free(&this->bmp);
+	} if         (kos_fonts[this].has_bmp) {
+		bmp_free(&kos_fonts[this].bmp);
 		
 	}
 	
