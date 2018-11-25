@@ -1,2 +1,0 @@
-
-#include "../fast/text.h"
