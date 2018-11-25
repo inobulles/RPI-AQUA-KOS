@@ -132,7 +132,7 @@ static void kos_font_create_text(kos_font_t* this, char* text) {
 		
 		#define                          ORIGINAL_COMMAND_BYTES 256
 		char*   command = (char*) malloc(ORIGINAL_COMMAND_BYTES + strlen(this->text));
-		sprintf(command, "convert -background transparent -fill white -font \"%s\" -pointsize %d label:'testing123' " TEMP_TEXT_RESULT_IMAGE_ROOT, "Sans", (int) this->size);
+		sprintf(command, "convert -background transparent -fill white -font \"%s\" -pointsize %d label:'testing123' " TEMP_TEXT_RESULT_IMAGE_ROOT, "root/fonts/main.ttf", /*(int) this->size*/ 72);
 		system (command);
 		
 		bmp_load(&this->bmp, (unsigned long long) TEMP_TEXT_RESULT_IMAGE);
