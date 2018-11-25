@@ -77,8 +77,6 @@ int main(void) {
 	
 	printf("Entering the DE ...\n");
 	
-	while(1){video_flip();}
-	
 	int error_code = load_rom((unsigned long long) ROM_PATH);
 	printf("DE return code is %d\n", error_code);
 	
