@@ -17,7 +17,7 @@
 	#define printf print
 	#define sprintf __sprintf
 	
-	#define NULL ((void*) 0)
+	//~ #define NULL ((void*) 0)
 	
 	// prototypes & __DUMMY_FUNCTION
 	
