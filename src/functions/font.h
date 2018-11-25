@@ -95,7 +95,7 @@ static void kos_font_create_text(kos_font_t* this, char* text) {
 				
 		}
 		
-		this->text = (char*) malloc(strlen(text));
+		this->text = (char*) malloc(strlen(text) + 1);
 		strcpy(this->text,                 text);
 		
 		#define TEMP_TEXT_RESULT_IMAGE      ".__temp_text_result.bmp"
@@ -107,7 +107,7 @@ static void kos_font_create_text(kos_font_t* this, char* text) {
 		system (command);
 		
 		bmp_load(&this->bmp, (unsigned long long) TEMP_TEXT_RESULT_IMAGE);
-		//~ system("rm "                              TEMP_TEXT_RESULT_IMAGE_ROOT);
+		system("rm "                              TEMP_TEXT_RESULT_IMAGE_ROOT);
 		
 	}
 	
