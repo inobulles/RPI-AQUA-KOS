@@ -107,7 +107,7 @@ static void kos_font_create_text(kos_font_t* this, char* text) {
 		system (command);
 		
 		bmp_load(&this->bmp, (unsigned long long) TEMP_TEXT_RESULT_IMAGE);
-		system("rm "                              TEMP_TEXT_RESULT_IMAGE_ROOT);
+		//~ system("rm "                              TEMP_TEXT_RESULT_IMAGE_ROOT);
 		
 	}
 	
