@@ -4,7 +4,7 @@
 
 	#include "root.h"
 	
-	#define KOS_3D_VISUALIZATION 1
+	#define KOS_3D_VISUALIZATION 0
 	
 	void opengl_view(state_t* state) {
 		glColorMask(1, 1, 1, 0);
@@ -26,7 +26,7 @@
 		glEnable(GL_LINE_SMOOTH);
 		
 		glMatrixMode(GL_PROJECTION);
-		glViewport(0, 0, this->width, this->height);
+		glViewport(0, 0, (GLsizei) state->screen_width, (GLsizei) state->screen_height);
 		glLoadIdentity();
 		
 		#if KOS_3D_VISUALIZATION
@@ -39,7 +39,7 @@
 			float center_x = 0.0f;
 			float center_y = 0.0f;
 			
-			glFrustum( \
+			//~ glFrustum( \
 				near * (-fov * ratio + center_x), \
 				near * ( fov * ratio + center_x), \
 				near * (-fov         + center_y), \
