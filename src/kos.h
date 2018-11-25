@@ -43,6 +43,7 @@ static kos_t* current_kos;
 #include "functions/fs.h"
 #include "functions/video.h"
 #include "functions/font.h"
+#include "functions/screenshot.h"
 
 //~ #include "openvg/test.h"
 
