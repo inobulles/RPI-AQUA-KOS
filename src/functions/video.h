@@ -14,6 +14,10 @@ void video_flip(void) {
 	flip(&current_kos->state);
 	current_kos->time_2 = clock();
 	
+	#if KOS_3D_VISUALIZATION
+		glRotatef(1.0f, 0.0f, 1.0f, 0.0f);
+	#endif
+	
 }
 
 void video_clear_colour(unsigned long long r, unsigned long long g, unsigned long long b, unsigned long long a) {
