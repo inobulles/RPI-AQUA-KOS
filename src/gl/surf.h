@@ -226,8 +226,6 @@
 	}
 
 	int surface_draw(surface_t* this) {
-		printf("%p\n", this);
-		
 		//~ glEnableClientState(GL_VERTEX_ARRAY);
 		//~ glEnableClientState(GL_COLOR_ARRAY);
 		
