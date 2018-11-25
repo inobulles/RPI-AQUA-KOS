@@ -130,18 +130,13 @@ static void kos_font_create_text(kos_font_t* this, char* text) {
 		#define TEMP_TEXT_RESULT_IMAGE      ".__temp_text_result.bmp"
 		#define TEMP_TEXT_RESULT_IMAGE_ROOT "root/" TEMP_TEXT_RESULT_IMAGE
 		
-		#define TEMP_TEXT_RESULT_TEXT       ".__temp_text_result.txt"
-		#define TEMP_TEXT_RESULT_TEXT_ROOT  "root/" TEMP_TEXT_RESULT_TEXT
-		
-		fs_write((unsigned long long) TEMP_TEXT_RESULT_TEXT, (unsigned long long) this->text, strlen(this->text));
-		
 		#define                          ORIGINAL_COMMAND_BYTES 256
 		char*   command = (char*) malloc(ORIGINAL_COMMAND_BYTES + strlen(this->text));
-		sprintf(command, "convert -background transparent -fill white -font \"%s\" -pointsize %d label:@" TEMP_TEXT_RESULT_TEXT_ROOT " " TEMP_TEXT_RESULT_IMAGE_ROOT, "Sans", (int) this->size);
+		sprintf(command, "convert -background transparent -fill white -font \"%s\" -pointsize %d label:@/etc/motd " TEMP_TEXT_RESULT_IMAGE_ROOT, "Sans", (int) this->size);
 		system (command);
 		
-		bmp_load(&this->bmp,     (unsigned long long) TEMP_TEXT_RESULT_IMAGE);
-		system ("rm " TEMP_TEXT_RESULT_IMAGE_ROOT " " TEMP_TEXT_RESULT_TEXT_ROOT);
+		bmp_load(&this->bmp, (unsigned long long) TEMP_TEXT_RESULT_IMAGE);
+		//~ system ("rm "                     TEMP_TEXT_RESULT_IMAGE_ROOT);
 		
 	}
 	
